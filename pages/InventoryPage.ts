@@ -27,7 +27,7 @@ export class InventoryPage {
         await this.addBackpackButton.click();
     }
 
-async verifyCartBadge(expectedCount: string) 
+  async verifyCartBadge(expectedCount: string) 
     {
         await expect(this.cartBadge).toHaveText(expectedCount);
     }
