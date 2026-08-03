@@ -1,8 +1,7 @@
-import { test, expect } from '../../fixtures/baseFixture';
+import { test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 
-test('Valid user login', async ({ loginPage, page }) => {
-
+test('Valid user login', async ({ loginPage, inventoryPage }) => {
   await loginPage.goto();
 
   await loginPage.login(
@@ -10,6 +9,5 @@ test('Valid user login', async ({ loginPage, page }) => {
     users.standardUser.password
   );
 
-  await expect(page).toHaveURL(/inventory/);
-
+  await inventoryPage.verifyLoaded();
 });
