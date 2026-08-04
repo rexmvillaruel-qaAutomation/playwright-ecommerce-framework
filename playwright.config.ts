@@ -26,12 +26,12 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: 'https://www.saucedemo.com/',
-    headless: false,
-    viewport: null,
-  launchOptions: {
-      args: ['--start-maximized'],
-      slowMo: 500,
-  },
+  //  headless: false,
+ //   viewport: null,
+ //launchOptions: {
+    //  args: ['--start-maximized'],
+     // slowMo: 500,
+//  },
     trace: 'on-first-retry',
   },
 
