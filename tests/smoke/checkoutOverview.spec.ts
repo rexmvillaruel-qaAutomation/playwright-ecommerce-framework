@@ -1,6 +1,8 @@
 import { test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
+import checkout from '../../data/checkout.json';
+import messages from '../../data/messages.json'
 
 test('Complete checkout information', async ({
   loginPage,
@@ -18,21 +20,26 @@ test('Complete checkout information', async ({
     users.standardUser.password
   );
 //Inventory 
-  await inventoryPage.verifyLoaded();
-  await inventoryPage.addBackpackToCart();
-  await inventoryPage.openCart();
+   await inventoryPage.verifyLoaded();
+   await inventoryPage.addBackpackToCart();
+   await inventoryPage.verifyCartBadge(
+    products.backpack.cartbadgeCount
+  );
+   await inventoryPage.openCart();
 //Cart 
-  await cartPage.verifyCartItemVisible();
-  await cartPage.clickCheckout();
+   await cartPage.verifyCartItemVisible();
+   await cartPage.clickCheckout();
 //Checkout 
-  await checkoutPage.fillCheckoutInformation(
+   await checkoutPage.fillCheckoutInformation(
     users.standardUser.firstName,
     users.standardUser.lastName,
     users.standardUser.postalCode
   );
-  await checkoutPage.continueCheckout();
+   await checkoutPage.continueCheckout();
 //Checkout Overview 
-  await checkoutOverviewPage.verifyPageLoaded();
+  await checkoutOverviewPage.verifyPageLoaded(
+    messages.overview.title
+  );
   await checkoutOverviewPage.verifyProductDetails(
     
     products.backpack.name,
@@ -42,11 +49,11 @@ test('Complete checkout information', async ({
   );
   await checkoutOverviewPage.verifyOrderSummary(
     
-    products.orderSummary.paymentInformation,
-    products.orderSummary.shippingInformation,
-    products.orderSummary.itemTotal,
-    products.orderSummary.tax,
-    products.orderSummary.total
+    checkout.orderSummary.paymentInformation,
+    checkout.orderSummary.shippingInformation,
+    checkout.orderSummary.itemTotal,
+    checkout.orderSummary.tax,
+    checkout.orderSummary.total
 
   );
   await checkoutOverviewPage.completeCheckout();

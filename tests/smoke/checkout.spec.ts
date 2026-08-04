@@ -1,5 +1,6 @@
 import { test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
+import products from '../../data/products.json';
 
 test('Complete checkout information', async ({
   loginPage,
@@ -15,9 +16,12 @@ test('Complete checkout information', async ({
     users.standardUser.password
   );
 //Inventory Page
-  await inventoryPage.verifyLoaded();
-  await inventoryPage.addBackpackToCart();
-  await inventoryPage.openCart();
+   await inventoryPage.verifyLoaded();
+   await inventoryPage.addBackpackToCart();
+   await inventoryPage.verifyCartBadge(
+    products.backpack.cartbadgeCount
+  );
+   await inventoryPage.openCart();
 //Cart Page
   await cartPage.verifyCartItemVisible();
   await cartPage.clickCheckout();

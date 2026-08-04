@@ -2,13 +2,7 @@
   "backpack": {
     "name": "Sauce Labs Backpack",
     "quantity": "1",
-    "price": "$29.99"
-  },
-  "orderSummary":{
-    "paymentInformation": "SauceCard #31337",
-    "shippingInformation": "Free Pony Express Delivery!",
-    "itemTotal": "$29.99",
-    "tax": "$2.40",
-    "total": "$32.39"
+    "price": "$29.99",
+    "cartbadgeCount": "1"
   }
 }

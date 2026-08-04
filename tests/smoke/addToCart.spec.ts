@@ -1,5 +1,6 @@
 import { test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
+import products from '../../data/products.json';
 
 test('Add backpack to cart', async ({ loginPage, inventoryPage }) => {
   
@@ -10,8 +11,10 @@ test('Add backpack to cart', async ({ loginPage, inventoryPage }) => {
     users.standardUser.password
   );
 //Inventory
-  await inventoryPage.verifyLoaded();
-  await inventoryPage.addBackpackToCart();
-  await inventoryPage.verifyCartBadge('1');
-  
+   await inventoryPage.verifyLoaded();
+   await inventoryPage.addBackpackToCart();
+   await inventoryPage.verifyCartBadge(
+    products.backpack.cartbadgeCount
+  );
+
 });

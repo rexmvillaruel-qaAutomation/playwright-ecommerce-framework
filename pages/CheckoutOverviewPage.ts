@@ -32,9 +32,9 @@ export class CheckoutOverviewPage {
     this.finishButton = page.locator('[id="finish"]');
   }
 
-  async verifyPageLoaded()
+  async verifyPageLoaded(expectedTitle: string)
     {
-        await expect(this.pageTitle).toHaveText('Checkout: Overview');
+        await expect(this.pageTitle).toHaveText(expectedTitle);
     
     }
     async verifyProductDetails(
