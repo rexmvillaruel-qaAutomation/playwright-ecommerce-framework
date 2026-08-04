@@ -3,6 +3,8 @@ import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { CheckPrimeOptions } from 'crypto';
+import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 
 
 type Fixtures = {
@@ -10,6 +12,7 @@ type Fixtures = {
   inventoryPage: InventoryPage;
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
+  checkoutOverviewPage: CheckoutOverviewPage;
 
 };
 
@@ -29,6 +32,9 @@ const test = base.extend<Fixtures>({
     await use(new CheckoutPage(page));
   },
   
+  checkoutOverviewPage: async ({ page }, use) => {
+    await use(new CheckoutOverviewPage(page));
+  },
   
    }
 );
