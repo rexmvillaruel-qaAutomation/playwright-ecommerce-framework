@@ -4,15 +4,12 @@ import products from '../../data/products.json';
 
 
 // Common Setup
-test.beforeEach(async ({ loginPage, inventoryPage }) => {
-  await loginPage.goto();
+test.beforeEach(async ({ authHelper }) => {
 // Login
-  await loginPage.login(
+  await authHelper.loginAs(
     users.standardUser.username,
     users.standardUser.password
-  );
-// Inventory
-  await inventoryPage.verifyLoaded();
+      );
    });
 
 // Test Scenario:
@@ -25,7 +22,6 @@ test.beforeEach(async ({ loginPage, inventoryPage }) => {
     products.backpack.cartbadgeCount
     );
    await inventoryPage.openCart();
-   
 // Cart
    await cartPage.verifyCartItemVisible();
   });

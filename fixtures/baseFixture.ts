@@ -3,9 +3,9 @@ import { LoginPage } from '../pages/LoginPage';
 import { InventoryPage } from '../pages/InventoryPage';
 import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
-import { CheckPrimeOptions } from 'crypto';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
+import { AuthHelper } from '../helpers/authHelper';
 
 
 type Fixtures = {
@@ -14,7 +14,8 @@ type Fixtures = {
   cartPage: CartPage;
   checkoutPage: CheckoutPage;
   checkoutOverviewPage: CheckoutOverviewPage;
-  checkoutCompletePage: CheckoutCompletePage
+  checkoutCompletePage: CheckoutCompletePage;
+  authHelper: AuthHelper;
 
 };
 
@@ -40,6 +41,13 @@ const test = base.extend<Fixtures>({
   checkoutCompletePage: async ({ page }, use) => {
     await use(new CheckoutCompletePage(page));
   },
+
+  authHelper: async (
+    { loginPage, inventoryPage },
+    use ) => 
+    {
+    await use(new AuthHelper(loginPage, inventoryPage));
+    }
    }
 );
 
