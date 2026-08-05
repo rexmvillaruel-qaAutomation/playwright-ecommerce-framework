@@ -4,39 +4,44 @@ import products from '../../data/products.json';
 import checkout from '../../data/checkout.json';
 import messages from '../../data/messages.json'
 
-test('Complete checkout information', async ({
-  loginPage,
-  inventoryPage,
-  cartPage,
-  checkoutPage,
-  checkoutOverviewPage,
-
-}) => {
+// Common Setup
+test.beforeEach(async ({ loginPage, inventoryPage }) => {
   await loginPage.goto();
-
-//Login 
+// Login
   await loginPage.login(
     users.standardUser.username,
     users.standardUser.password
   );
-//Inventory 
-   await inventoryPage.verifyLoaded();
+// Inventory
+  await inventoryPage.verifyLoaded();
+   });
+
+// Test Scenario:
+
+   test('Verify checkout overview information', async ({ 
+    inventoryPage, cartPage, checkoutPage, 
+    checkoutOverviewPage }) => {
+
+// Inventory    
    await inventoryPage.addBackpackToCart();
    await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
-  );
+    );
    await inventoryPage.openCart();
-//Cart 
+   
+// Cart
    await cartPage.verifyCartItemVisible();
    await cartPage.clickCheckout();
-//Checkout 
+
+// Checkout 
    await checkoutPage.fillCheckoutInformation(
     users.standardUser.firstName,
     users.standardUser.lastName,
     users.standardUser.postalCode
   );
    await checkoutPage.continueCheckout();
-//Checkout Overview 
+
+// Checkout Overview 
   await checkoutOverviewPage.verifyPageLoaded(
     messages.overview.title
   );
@@ -56,6 +61,5 @@ test('Complete checkout information', async ({
     checkout.orderSummary.total
 
   );
-  await checkoutOverviewPage.completeCheckout();
-
+  
 });

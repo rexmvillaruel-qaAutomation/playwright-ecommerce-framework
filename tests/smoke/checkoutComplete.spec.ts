@@ -4,40 +4,44 @@ import products from '../../data/products.json';
 import checkout from '../../data/checkout.json';
 import messages from '../../data/messages.json'
 
-test('Complete checkout information', async ({
-  loginPage,
-  inventoryPage,
-  cartPage,
-  checkoutPage,
-  checkoutOverviewPage,
-  checkoutCompletePage,
-
-}) => {
+// Common Setup
+test.beforeEach(async ({ loginPage, inventoryPage }) => {
   await loginPage.goto();
-
-//Login 
+// Login
   await loginPage.login(
     users.standardUser.username,
     users.standardUser.password
   );
-//Inventory 
+// Inventory
   await inventoryPage.verifyLoaded();
-  await inventoryPage.addBackpackToCart();
-  await inventoryPage.verifyCartBadge(
+   });
+
+// Test Scenario:
+
+   test('Complete checkout successfully', async ({ 
+    inventoryPage, cartPage, checkoutPage, 
+    checkoutOverviewPage, checkoutCompletePage }) => {
+
+// Inventory    
+   await inventoryPage.addBackpackToCart();
+   await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
-  );
-  await inventoryPage.openCart();
-//Cart 
-  await cartPage.verifyCartItemVisible();
-  await cartPage.clickCheckout();
-//Checkout 
-  await checkoutPage.fillCheckoutInformation(
+    );
+   await inventoryPage.openCart();
+   
+// Cart
+   await cartPage.verifyCartItemVisible();
+   await cartPage.clickCheckout();
+
+// Checkout 
+   await checkoutPage.fillCheckoutInformation(
     users.standardUser.firstName,
     users.standardUser.lastName,
     users.standardUser.postalCode
   );
-  await checkoutPage.continueCheckout();
-//Checkout Overview 
+   await checkoutPage.continueCheckout();
+
+// Checkout Overview 
   await checkoutOverviewPage.verifyPageLoaded(
     messages.overview.title
   );
@@ -59,7 +63,7 @@ test('Complete checkout information', async ({
   );
   await checkoutOverviewPage.completeCheckout();
 
-//Completed Checkout
+// Completed Checkout
   await checkoutCompletePage.verifyLoaded (
     messages.complete.title
   );
@@ -69,7 +73,7 @@ test('Complete checkout information', async ({
   );
   await checkoutCompletePage.verifyActionButtons ();
 
-//Back to Inventory
+// Back to Inventory
   await checkoutCompletePage.clickBackHome()
   await inventoryPage.verifyLoaded();
 
