@@ -8,6 +8,12 @@ It automates the complete purchase flow of the Sauce Demo application using the 
 
 ---
 
+## Purpose
+
+This project was built to strengthen my expertise in Playwright and modern automation framework design. While I have prior experience with tools such as Selenium, WebdriverIO, UFT, Appium, Karate Framework and TOSCA, this repository focuses on applying Playwright and TypeScript using clean architecture, Page Object Model (POM), reusable helpers, fixtures, and CI/CD best practices.
+
+---
+
 ## 🚀 Tech Stack
 
 - Playwright
@@ -155,4 +161,4 @@ GitHub Actions automatically runs the Playwright test suite on every push to the
 
 ## 👨‍💻 Author
 
-Developed by Rex using Playwright + TypeScript as part of a QA Automation learning journey.
+Developed by Rex Melvin Villaruel using Playwright and TypeScript as a portfolio project focused on modern UI test automation, scalable framework design, and continuous upskilling in Playwright.
