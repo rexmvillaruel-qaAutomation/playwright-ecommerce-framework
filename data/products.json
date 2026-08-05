@@ -1,8 +1,9 @@
 {
   "backpack": {
     "name": "Sauce Labs Backpack",
-    "quantity": "1",
+    "locatorId": "sauce-labs-backpack",
     "price": "$29.99",
+    "quantity": "1",
     "cartbadgeCount": "1"
   }
 }

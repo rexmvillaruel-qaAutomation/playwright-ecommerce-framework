@@ -20,7 +20,7 @@ test.beforeEach(async ({ authHelper }) => {
     checkoutOverviewPage, checkoutCompletePage }) => {
 
 // Inventory    
-   await inventoryPage.addBackpackToCart();
+   await inventoryPage.addProductToCart(products.backpack);
    await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
     );

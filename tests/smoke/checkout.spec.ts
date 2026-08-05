@@ -16,7 +16,7 @@ test.beforeEach(async ({ authHelper }) => {
    test('Complete checkout information and continue', async ({ inventoryPage, cartPage, checkoutPage }) => {
 
 // Inventory    
-   await inventoryPage.addBackpackToCart();
+   await inventoryPage.addProductToCart(products.backpack);
    await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
     );

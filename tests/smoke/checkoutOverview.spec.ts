@@ -12,7 +12,7 @@ test.beforeEach(async ({ authHelper }) => {
     users.standardUser.password
       );
    });
-   
+
 // Test Scenario:
 
    test('Verify checkout overview information', async ({ 
@@ -20,7 +20,7 @@ test.beforeEach(async ({ authHelper }) => {
     checkoutOverviewPage }) => {
 
 // Inventory    
-   await inventoryPage.addBackpackToCart();
+   await inventoryPage.addProductToCart(products.backpack);
    await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
     );

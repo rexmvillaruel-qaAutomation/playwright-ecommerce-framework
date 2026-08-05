@@ -4,7 +4,6 @@ export class InventoryPage {
   readonly page: Page;
   readonly inventoryContainer: Locator;
   readonly shoppingCartLink: Locator;
-  readonly addBackpackButton: Locator;
   readonly cartBadge: Locator;
 
   constructor(page: Page) {
@@ -13,7 +12,6 @@ export class InventoryPage {
     
     this.inventoryContainer = page.locator('[data-test="inventory-container"]');
     this.shoppingCartLink = page.locator('.shopping_cart_link');
-    this.addBackpackButton = page.locator('[data-test="add-to-cart-sauce-labs-backpack"]');
     this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
   }
 
@@ -22,11 +20,12 @@ export class InventoryPage {
         await expect(this.inventoryContainer).toBeVisible();
     
     }
-  async addBackpackToCart() 
-    {
-        await this.addBackpackButton.click();
-    }
 
+ async addProductToCart(productDetails: any) {
+    await this.page
+        .locator(`[data-test="add-to-cart-${productDetails.locatorId}"]`)
+        .click();
+}
   async verifyCartBadge(expectedCount: string) 
     {
         await expect(this.cartBadge).toHaveText(expectedCount);

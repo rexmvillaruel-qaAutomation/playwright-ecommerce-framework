@@ -17,7 +17,7 @@ test.beforeEach(async ({ authHelper }) => {
    test('Verify added item appears in cart', async ({ inventoryPage, cartPage }) => {
  
 // Inventory    
-   await inventoryPage.addBackpackToCart();
+   await inventoryPage.addProductToCart(products.backpack);
    await inventoryPage.verifyCartBadge(
     products.backpack.cartbadgeCount
     );
