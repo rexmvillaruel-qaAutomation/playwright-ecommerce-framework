@@ -20,4 +20,5 @@ export class AuthHelper {
         await this.loginPage.login(username, password);
         await this.inventoryPage.verifyLoaded();
     }
+
 }

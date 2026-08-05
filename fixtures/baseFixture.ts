@@ -6,6 +6,7 @@ import { CheckoutPage } from '../pages/CheckoutPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 import { AuthHelper } from '../helpers/authHelper';
+import { InventoryHelper } from '../helpers/inventoryHelper';
 
 
 type Fixtures = {
@@ -16,9 +17,11 @@ type Fixtures = {
   checkoutOverviewPage: CheckoutOverviewPage;
   checkoutCompletePage: CheckoutCompletePage;
   authHelper: AuthHelper;
+  inventoryHelper: InventoryHelper;
 
 };
 
+// Pages:
 const test = base.extend<Fixtures>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
@@ -42,14 +45,22 @@ const test = base.extend<Fixtures>({
     await use(new CheckoutCompletePage(page));
   },
 
+
+  // Helpers:
   authHelper: async (
     { loginPage, inventoryPage },
-    use ) => 
-    {
+    use ) => {
     await use(new AuthHelper(loginPage, inventoryPage));
-    }
-   }
-);
+    },
+
+  inventoryHelper: async (
+    { inventoryPage }, 
+    use ) => {
+    await use(new InventoryHelper( inventoryPage ));
+    },
+});
+  
+
 
 export { test };
 export { expect } from '@playwright/test';

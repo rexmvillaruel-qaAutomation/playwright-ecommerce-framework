@@ -13,16 +13,16 @@ test.beforeEach(async ({ authHelper }) => {
 
 // Test Scenario:
 
-   test('Complete checkout information and continue', async ({ inventoryPage, cartPage, checkoutPage }) => {
+   test('Complete checkout information and continue', async (
+    { inventoryPage, inventoryHelper, cartPage, checkoutPage }) => {
 
 // Inventory    
-   await inventoryPage.addProductToCart(products.backpack);
-   await inventoryPage.verifyCartBadge(
-    products.backpack.cartbadgeCount
-    );
-   await inventoryPage.openCart();
+    await inventoryHelper.addProductToCart(
+      products.backpack
+      );
+      
 // Cart
-   
+   await inventoryPage.openCart()
    await cartPage.verifyCartItemVisible();
    await cartPage.clickCheckout();
 

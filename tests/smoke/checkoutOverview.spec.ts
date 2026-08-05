@@ -17,16 +17,15 @@ test.beforeEach(async ({ authHelper }) => {
 
    test('Verify checkout overview information', async ({ 
     inventoryPage, cartPage, checkoutPage, 
-    checkoutOverviewPage }) => {
+    checkoutOverviewPage, inventoryHelper }) => {
 
 // Inventory    
-   await inventoryPage.addProductToCart(products.backpack);
-   await inventoryPage.verifyCartBadge(
-    products.backpack.cartbadgeCount
-    );
-   await inventoryPage.openCart();
-   
+    await inventoryHelper.addProductToCart(
+      products.backpack
+      );
+  
 // Cart
+   await inventoryPage.openCart();
    await cartPage.verifyCartItemVisible();
    await cartPage.clickCheckout();
 
