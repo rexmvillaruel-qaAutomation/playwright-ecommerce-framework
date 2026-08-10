@@ -8,6 +8,7 @@ import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 import { AuthHelper } from '../helpers/authHelper';
 import { InventoryHelper } from '../helpers/inventoryHelper';
 import { CartHelper } from '../helpers/cartHelper';
+import { CheckoutHelper } from '../helpers/checkoutHelper';
 
 type Fixtures = {
   loginPage: LoginPage;
@@ -19,6 +20,7 @@ type Fixtures = {
   authHelper: AuthHelper;
   inventoryHelper: InventoryHelper;
   cartHelper: CartHelper;
+  checkoutHelper: CheckoutHelper;
 };
 
 // Pages:
@@ -63,6 +65,13 @@ const test = base.extend<Fixtures>({
     use ) => {
     await use(new CartHelper( inventoryPage, cartPage ));
     },
+
+  checkoutHelper: async (
+    {cartPage, checkoutPage},
+    use ) => {
+      await use(new CheckoutHelper( cartPage, checkoutPage));
+    },
+  
   
 });
   

@@ -14,7 +14,7 @@ test.beforeEach(async ({ authHelper }) => {
 // Test Scenario:
 
    test('Complete checkout information and continue', async (
-    { inventoryPage, inventoryHelper, cartPage, checkoutPage }) => {
+    { inventoryHelper, cartHelper, checkoutHelper }) => {
 
 // Inventory    
     await inventoryHelper.addProductToCart(
@@ -22,16 +22,14 @@ test.beforeEach(async ({ authHelper }) => {
       );
       
 // Cart
-   await inventoryPage.openCart()
-   await cartPage.verifyCartItemVisible();
-   await cartPage.clickCheckout();
+   await cartHelper.openCart();
+   await cartHelper.verifyAddedProduct();
 
 // Checkout 
-   await checkoutPage.fillCheckoutInformation(
-    users.standardUser.firstName,
-    users.standardUser.lastName,
-    users.standardUser.postalCode
-  );
-   await checkoutPage.continueCheckout();
+   await checkoutHelper.proceedToCheckout(
+      users.standardUser.firstName,
+      users.standardUser.lastName,
+      users.standardUser.postalCode
+   );
 
 });

@@ -10,9 +10,11 @@ import { CartPage } from '../pages/CartPage';
             this.inventoryPage = inventoryPage;
             this.cartPage = cartPage;
         }
-    async verifyAddedProduct (){
-        
-         await this.inventoryPage.openCart();   
+    
+    async openCart() {
+        await this.inventoryPage.openCart();
+        }
+    async verifyAddedProduct () {
          await this.cartPage.verifyCartItemVisible();
         }      
     }

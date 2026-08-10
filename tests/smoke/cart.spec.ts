@@ -21,6 +21,7 @@ test.beforeEach(async ({ authHelper }) => {
       products.backpack
       );
 // Cart
+    await cartHelper.openCart();
     await cartHelper.verifyAddedProduct();
   });
   
