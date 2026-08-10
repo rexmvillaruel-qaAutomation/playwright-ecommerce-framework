@@ -7,7 +7,7 @@ import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 import { AuthHelper } from '../helpers/authHelper';
 import { InventoryHelper } from '../helpers/inventoryHelper';
-
+import { CartHelper } from '../helpers/cartHelper';
 
 type Fixtures = {
   loginPage: LoginPage;
@@ -18,7 +18,7 @@ type Fixtures = {
   checkoutCompletePage: CheckoutCompletePage;
   authHelper: AuthHelper;
   inventoryHelper: InventoryHelper;
-
+  cartHelper: CartHelper;
 };
 
 // Pages:
@@ -45,7 +45,6 @@ const test = base.extend<Fixtures>({
     await use(new CheckoutCompletePage(page));
   },
 
-
   // Helpers:
   authHelper: async (
     { loginPage, inventoryPage },
@@ -58,9 +57,14 @@ const test = base.extend<Fixtures>({
     use ) => {
     await use(new InventoryHelper( inventoryPage ));
     },
+  
+  cartHelper: async (
+    { inventoryPage, cartPage }, 
+    use ) => {
+    await use(new CartHelper( inventoryPage, cartPage ));
+    },
+  
 });
   
-
-
 export { test };
 export { expect } from '@playwright/test';

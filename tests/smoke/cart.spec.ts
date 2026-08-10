@@ -14,14 +14,13 @@ test.beforeEach(async ({ authHelper }) => {
 
 // Test Scenario:
 
-   test('Verify added item appears in cart', async ({ inventoryPage, cartPage, inventoryHelper }) => {
+   test('Verify added item appears in cart', async ({inventoryHelper, cartHelper }) => {
  
 // Inventory    
     await inventoryHelper.addProductToCart(
       products.backpack
       );
 // Cart
-   await inventoryPage.openCart();
-   await cartPage.verifyCartItemVisible();
+    await cartHelper.verifyAddedProduct();
   });
   
