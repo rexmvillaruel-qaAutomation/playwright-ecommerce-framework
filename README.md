@@ -4,13 +4,17 @@
 
 This project is an end-to-end UI automation framework built with Playwright and TypeScript.
 
-It automates the complete purchase flow of the Sauce Demo application using the Page Object Model (POM), reusable fixtures, centralized test data, and GitHub Actions for Continuous Integration (CI).
+It automates the complete purchase flow of the Sauce Demo application using the Page Object Model (POM), reusable helpers, custom fixtures, centralized test data, type-safe data models, and GitHub Actions for Continuous Integration (CI).
 
 ---
 
 ## Purpose
 
-This project was built to strengthen my expertise in Playwright and modern automation framework design. While I have prior experience with tools such as Selenium, WebdriverIO, UFT, Appium, Karate Framework and TOSCA, this repository focuses on applying Playwright and TypeScript using clean architecture, Page Object Model (POM), reusable helpers, fixtures, and CI/CD best practices.
+This project was built to strengthen my expertise in Playwright and modern test automation framework design.
+
+While I have prior experience with tools such as Selenium, WebdriverIO, UFT, Appium, Karate Framework, and TOSCA, this repository focuses on applying Playwright and TypeScript using clean architecture, Page Object Model (POM), reusable helpers, fixtures, centralized test data, type-safe models, and CI/CD practices.
+
+The framework is designed with separation of concerns in mind, keeping UI interactions, reusable business flows, test data, and test scenarios organized into dedicated layers.
 
 ---
 
@@ -26,21 +30,41 @@ This project was built to strengthen my expertise in Playwright and modern autom
 
 ## 📁 Project Structure
 
-```
+```text
 playwright-ecommerce-framework/
 │
+├── .github/
+│   └── workflows/
+├── api/
 ├── data/
 ├── fixtures/
+├── helpers/
 ├── pages/
 ├── tests/
-├── .github/
+├── types/
+├── utils/
+├── .gitignore
+├── package.json
 ├── playwright.config.ts
+├── tsconfig.json
 └── README.md
 ```
 
+### Framework Layers
+
+| Layer | Responsibility |
+|---|---|
+| `pages/` | Page-specific locators and UI interactions |
+| `helpers/` | Reusable business flows and test operations |
+| `fixtures/` | Dependency injection and reusable test setup |
+| `data/` | Centralized JSON test data |
+| `types/` | TypeScript contracts for structured test data |
+| `tests/` | Test scenarios and test assertions |
+| `.github/workflows/` | Continuous Integration configuration |
+
 ---
 
-## ✅ Test Coverage (Phase 1)
+## ✅ Test Coverage
 
 The current automation suite covers the complete purchase workflow:
 
@@ -49,39 +73,75 @@ The current automation suite covers the complete purchase workflow:
 - Cart Validation
 - Checkout Information
 - Checkout Overview
-- Checkout Complete
+- Checkout Completion
+- Return to Inventory
+
+The framework currently validates the complete happy-path purchase journey using the Sauce Labs Backpack test product.
 
 ---
 
 ## 🏗 Framework Design
 
-The framework follows the Page Object Model (POM) design pattern.
+The framework follows a layered automation architecture based on the Page Object Model and separation of concerns.
 
-Key components include:
+### Key Components
 
-- Page Object Model
-- Reusable Fixtures
-- JSON Test Data
-- Smoke Test Suite
-- GitHub Actions CI
+- **Page Object Model (POM)**  
+  Encapsulates page-specific locators and UI interactions.
+
+- **Reusable Helpers**  
+  Encapsulates reusable business flows and reduces duplication across test scenarios.
+
+- **Reusable Fixtures**  
+  Provides centralized dependency injection for Page Objects and Helpers.
+
+- **Centralized Test Data**  
+  Stores users, products, checkout information, and validation messages in dedicated JSON files.
+
+- **Type-Safe Test Data Models**  
+  Uses TypeScript interfaces/types to provide structured and type-safe test data.
+
+- **Separation of Concerns**  
+  Keeps test scenarios, UI interactions, reusable flows, fixtures, and test data in their appropriate layers.
+
+- **Smoke Test Suite**  
+  Covers the primary end-to-end purchase workflow.
+
+- **GitHub Actions CI**  
+  Integrates automated Playwright test execution into the development workflow.
+
+### Helper Architecture
+
+The current helper layer includes:
+
+```text
+helpers/
+├── authHelper.ts
+├── inventoryHelper.ts
+├── cartHelper.ts
+├── checkoutHelper.ts
+└── checkoutOverviewHelper.ts
+```
+
+Each helper is responsible for a specific area of the application flow, allowing test specifications to remain focused on describing the scenario rather than implementing every individual interaction.
 
 ---
 
 ## ⚙️ Installation
 
-Clone the repository
+Clone the repository:
 
 ```bash
 git clone <repository-url>
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Install Playwright browsers
+Install Playwright browsers:
 
 ```bash
 npx playwright install
@@ -91,31 +151,31 @@ npx playwright install
 
 ## ▶️ Running Tests
 
-Run all tests
+Run all tests:
 
 ```bash
 npx playwright test
 ```
 
-Run a single test
+Run a single test:
 
 ```bash
 npx playwright test tests/smoke/login.spec.ts
 ```
 
-Run in headed mode
+Run in headed mode:
 
 ```bash
 npx playwright test --headed
 ```
 
-Run in debug mode
+Run in debug mode:
 
 ```bash
 npx playwright test --debug
 ```
 
-Open HTML report
+Open the HTML report:
 
 ```bash
 npx playwright show-report
@@ -125,13 +185,15 @@ npx playwright show-report
 
 ## 🤖 Continuous Integration
 
-GitHub Actions automatically runs the Playwright test suite on every push to the repository.
+GitHub Actions is configured to execute the Playwright test suite as part of the CI workflow.
+
+This allows automated test execution to be integrated into the repository's development workflow and provides an additional validation layer for changes.
 
 ---
 
 ## 📅 Roadmap
 
-### ✅ Phase 1 (Completed)
+### ✅ Phase 1 — Core Framework Implementation
 
 - Login
 - Inventory
@@ -139,23 +201,30 @@ GitHub Actions automatically runs the Playwright test suite on every push to the
 - Checkout
 - Checkout Overview
 - Checkout Complete
+- Page Object Model
+- Reusable Fixtures
+- Centralized Test Data
 - GitHub Actions Integration
 
-### 🔄 Phase 2 (In Progress)
+### ✅ Phase 2 — Framework Refactoring
 
-- Framework Refactoring
-- beforeEach Hooks
-- Helper Methods
-- Reduce Duplicate Code
+- `beforeEach` Hooks
+- Centralization of Reusable Helpers
+- Checkout Flow Abstraction
+- Implementation of TypeScript Data Types
+- Reduction of Duplicate Code
+- Separation of Test Responsibilities
+- Type-Safe Test Data Models
 
-### 📌 Future Enhancements
+### 🔄 Phase 3 — Advanced Automation
 
-- Negative Test Scenarios
-- Data-Driven Testing
+- Negative and Edge-Case Scenarios
+- Advanced Data-Driven Testing
 - API Testing
-- Environment Configuration
+- Environment-Based Configuration
 - Reporting Enhancements
-- Cross-browser Improvements
+- Cross-Browser Test Execution
+- Additional Reusable Components
 
 ---
 
