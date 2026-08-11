@@ -2,7 +2,7 @@ import { test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
 import checkout from '../../data/checkout.json';
-import messages from '../../data/messages.json'
+import messages from '../../data/messages.json';
 
 // Common Setup
 test.beforeEach(async ({ authHelper }) => {
@@ -17,7 +17,7 @@ test.beforeEach(async ({ authHelper }) => {
 
    test('Verify checkout overview information', async ({ 
     cartHelper, checkoutHelper, 
-    checkoutOverviewPage, inventoryHelper }) => {
+    inventoryHelper, checkoutOverviewHelper }) => {
 
 // Inventory    
     await inventoryHelper.addProductToCart(
@@ -36,24 +36,9 @@ test.beforeEach(async ({ authHelper }) => {
    );
 
 // Checkout Overview 
-  await checkoutOverviewPage.verifyPageLoaded(
-    messages.overview.title
-  );
-  await checkoutOverviewPage.verifyProductDetails(
-    
-    products.backpack.name,
-    products.backpack.quantity,
-    products.backpack.price
-
-  );
-  await checkoutOverviewPage.verifyOrderSummary(
-    
-    checkout.orderSummary.paymentInformation,
-    checkout.orderSummary.shippingInformation,
-    checkout.orderSummary.itemTotal,
-    checkout.orderSummary.tax,
-    checkout.orderSummary.total
-
-  );
-  
+  await checkoutOverviewHelper.verifyOverview(
+     messages.overview.title, 
+     products.backpack, 
+     checkout.orderSummary);
+ 
 });

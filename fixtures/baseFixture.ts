@@ -9,6 +9,7 @@ import { AuthHelper } from '../helpers/authHelper';
 import { InventoryHelper } from '../helpers/inventoryHelper';
 import { CartHelper } from '../helpers/cartHelper';
 import { CheckoutHelper } from '../helpers/checkoutHelper';
+import { CheckoutOverviewHelper } from '../helpers/checkoutOverviewHelper';
 
 type Fixtures = {
   loginPage: LoginPage;
@@ -21,6 +22,7 @@ type Fixtures = {
   inventoryHelper: InventoryHelper;
   cartHelper: CartHelper;
   checkoutHelper: CheckoutHelper;
+  checkoutOverviewHelper: CheckoutOverviewHelper;
 };
 
 // Pages:
@@ -71,9 +73,14 @@ const test = base.extend<Fixtures>({
     use ) => {
       await use(new CheckoutHelper( cartPage, checkoutPage));
     },
-  
+   
+  checkoutOverviewHelper: async (
+   { checkoutOverviewPage },
+   use ) => {
+      await use(new CheckoutOverviewHelper(checkoutOverviewPage));
+    },
   
 });
-  
+
 export { test };
 export { expect } from '@playwright/test';

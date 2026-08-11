@@ -55,8 +55,6 @@ export class CheckoutOverviewPage {
         expectedItemTotal: string,
         expectedTax: string,
         expectedTotal: string
-
-       
     ) 
    {
         await expect(this.paymentInfo).toHaveText(expectedPaymentInfo);
