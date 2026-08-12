@@ -6,5 +6,12 @@
     "title": "Checkout: Complete!",
     "header": "Thank you for your order!",
     "message": "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+  },
+  "invalidUser": {
+    "message": "Epic sadface: Username and password do not match any user in this service"
+  },
+  "lockoutUser": {
+    "message": "Epic sadface: Sorry, this user has been locked out."
   }
+  
 }

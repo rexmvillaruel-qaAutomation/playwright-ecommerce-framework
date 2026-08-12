@@ -5,5 +5,14 @@
     "firstName": "Juan",
     "lastName": "Dela Cruz",
     "postalCode": "1000"
+  },
+  "invalidUser": {
+    "username": "standard_user",
+    "password": "xpassword"
+  },
+  "lockoutUser": {
+    "username": "locked_out_user",
+    "password": "secret_sauce"
+
   }
 }

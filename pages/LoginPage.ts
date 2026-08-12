@@ -1,4 +1,5 @@
-import { Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
+
 
 export class LoginPage {
 
@@ -7,16 +8,16 @@ export class LoginPage {
     readonly usernameInput: string;
     readonly passwordInput: string;
     readonly loginButton: string;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
 
         this.page = page;
-
         this.usernameInput = '#user-name';
-
         this.passwordInput = '#password';
-
         this.loginButton = '#login-button';
+
+        this.errorMessage = page.locator('[data-test="error"]');
 
     }
 
@@ -48,7 +49,9 @@ export class LoginPage {
         await this.page.click(
             this.loginButton
         );
+    }
+     async verifyLoginError(expectedMessage: string) {
+      await expect(this.errorMessage).toHaveText(expectedMessage);
+        }
 
     }
-
-}
