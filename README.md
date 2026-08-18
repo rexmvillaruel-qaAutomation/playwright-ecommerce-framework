@@ -218,15 +218,26 @@ This allows automated test execution to be integrated into the repository's deve
 
 ### 🔄 Phase 3 — Advanced Automation
 
-- Negative and Edge-Case Scenarios
-- Advanced Data-Driven Testing
-- API Testing
-- Environment-Based Configuration
-- Reporting Enhancements
-- Cross-Browser Test Execution
-- Additional Reusable Components
+- [x] Negative and Edge-Case Scenarios
+- [x] Advanced Data-Driven Testing
+- [x] API Testing Investigation
+- [ ] API Testing Implementation
+- [ ] Environment-Based Configuration
+- [ ] Reporting Enhancements
+- [ ] Cross-Browser Test Execution
+- [ ] Additional Reusable Components
 
----
+#### API Testing Investigation
+
+Before implementing API tests, the SauceDemo application's network traffic was investigated to identify a legitimate business API.
+
+- Successful login did not generate an application Fetch/XHR authentication request.
+- Invalid login attempts generated a `POST` request to `submit.backtrace.io`.
+- The Backtrace request was identified as third-party error-reporting telemetry rather than a SauceDemo authentication API.
+- Inspection of the frontend JavaScript bundle showed the application's known test usernames and `secret_sauce` password.
+- Based on these findings, the Backtrace endpoint was intentionally excluded from API automation.
+
+**Engineering Decision:** SauceDemo remains the UI application under test. API automation will use a separate legitimate API target rather than fabricating or misrepresenting a SauceDemo authentication API.
 
 ## 👨‍💻 Author
 
