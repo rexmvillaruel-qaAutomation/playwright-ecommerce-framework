@@ -1,28 +1,28 @@
 import { test, expect } from '../../fixtures/apiFixture';
+import authenticationData from '../../data/apiAuthenticationData.json';
 
-test('Create Auth Token - Valid Credentials', async ({ authApiClient }) => {
-  const response = await authApiClient.createAuthToken({
-    username: 'admin',
-    password: 'password123',
+Object.values(authenticationData).forEach(testCase => {
+
+  test(testCase.testName, async ({ authApiClient }) => {
+
+    const response = await authApiClient.createAuthToken({
+      username: testCase.username,
+      password: testCase.password,
+    });
+
+    expect(response.status()).toBe(testCase.expectedStatus);
+
+    const responseBody = await response.json();
+
+    if (testCase.expectedToken) {
+      expect(responseBody.token).toBeDefined();
+      expect(responseBody.token).not.toBe('');
+    }
+
+    if (testCase.expectedReason) {
+      expect(responseBody.reason).toBe(testCase.expectedReason);
+    }
+
   });
 
-  expect(response.status()).toBe(200);
-
-  const responseBody = await response.json();
-
-  expect(responseBody.token).toBeDefined();
-  expect(responseBody.token).not.toBe('');
-});
-
-test('Negative - Create Auth Token with Invalid Credentials', async ({ authApiClient }) => {
-  const response = await authApiClient.createAuthToken({
-    username: 'admin',
-    password: 'wrongpassword',
-  });
-
-  expect(response.status()).toBe(200);
-
-  const responseBody = await response.json();
-
-  expect(responseBody.reason).toBe('Bad credentials');
 });

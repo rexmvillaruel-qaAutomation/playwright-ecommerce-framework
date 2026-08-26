@@ -1,0 +1,18 @@
+{
+  "validCredentials": {
+    "testName": "Create Auth Token - Valid Credentials",
+    "username": "admin",
+    "password": "password123",
+    "expectedStatus": 200,
+    "expectedToken": true,
+    "expectedReason": null
+  },
+  "invalidCredentials": {
+    "testName": "Negative - Create Auth Token with Invalid Credentials",
+    "username": "admin",
+    "password": "wrongpassword",
+    "expectedStatus": 200,
+    "expectedToken": false,
+    "expectedReason": "Bad credentials"
+  }
+}
