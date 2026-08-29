@@ -87,6 +87,19 @@ playwright-ecommerce-framework/
 
 ---
 
+### Test Suite Organization
+
+The test scenarios are organized by testing purpose:
+
+| Suite | Responsibility |
+|---|---|
+| `tests/smoke/` | Critical-path tests for fast feedback |
+| `tests/regression/` | Broader functional and end-to-end coverage |
+| `tests/negative/` | Negative and edge-case scenarios |
+| `tests/api/` | API-level validation |
+
+The smoke suite contains a focused set of critical-path scenarios, while the regression suite provides broader functional coverage and end-to-end validation. Negative and API scenarios are maintained separately because they represent distinct testing concerns.
+
 ## ✅ Test Coverage
 
 The automation suite currently covers both UI and API scenarios.
@@ -480,6 +493,16 @@ Environment variables prevent environment-specific URLs from being hardcoded thr
 ### Why create a reusable Header component?
 
 The shopping cart navigation belongs to the application's shared header rather than specifically to the inventory page. Moving this functionality into a reusable `Header` component reduces coupling and improves separation of concerns.
+
+### Why separate Smoke and Regression suites?
+
+The test suite is organized by testing purpose rather than application feature alone.
+
+Smoke tests provide a focused set of critical-path checks that can be executed quickly to determine whether the application is stable enough for further testing.
+
+Regression tests provide broader functional and end-to-end coverage to validate existing functionality after changes.
+
+This separation allows the framework to provide fast feedback through smoke testing while retaining comprehensive regression coverage.
 
 ---
 
