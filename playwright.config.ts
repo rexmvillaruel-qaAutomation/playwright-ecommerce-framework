@@ -29,6 +29,7 @@ export default defineConfig({
     //  args: ['--start-maximized'],
      // slowMo: 500,
 //  },
+    screenshot: 'only-on-failure',
     trace: 'on-first-retry',
   },
 
