@@ -1,20 +1,20 @@
-import { InventoryPage } from '../pages/InventoryPage';
+import { Header } from '../components/Header';
 import { CartPage } from '../pages/CartPage';
 
- export class CartHelper {
-        
-       readonly inventoryPage: InventoryPage;
-       readonly cartPage: CartPage;
+export class CartHelper {
+  readonly header: Header;
+  readonly cartPage: CartPage;
 
-        constructor(inventoryPage: InventoryPage, cartPage: CartPage) {
-            this.inventoryPage = inventoryPage;
-            this.cartPage = cartPage;
-        }
-    
-    async openCart() {
-        await this.inventoryPage.openCart();
-        }
-    async verifyAddedProduct () {
-         await this.cartPage.verifyCartItemVisible();
-        }      
-    }
+  constructor(header: Header, cartPage: CartPage) {
+    this.header = header;
+    this.cartPage = cartPage;
+  }
+
+  async openCart() {
+    await this.header.openCart();
+  }
+
+  async verifyAddedProduct() {
+    await this.cartPage.verifyCartItemVisible();
+  }
+}
