@@ -2,9 +2,11 @@
 
 ## 📌 Project Overview
 
-This project is an end-to-end UI automation framework built with Playwright and TypeScript.
+This project is an end-to-end test automation framework built with **Playwright and TypeScript**.
 
-It automates the complete purchase flow of the Sauce Demo application using the Page Object Model (POM), reusable helpers, custom fixtures, centralized test data, type-safe data models, and GitHub Actions for Continuous Integration (CI).
+It automates the SauceDemo e-commerce application using the **Page Object Model (POM)**, reusable helpers, custom fixtures, reusable components, centralized test data, type-safe data models, API testing, environment-based configuration, cross-browser execution, HTML reporting, and GitHub Actions for Continuous Integration (CI).
+
+The framework is designed with **separation of concerns** in mind, keeping UI interactions, shared components, reusable business flows, API clients, test data, configuration, and test scenarios organized into dedicated layers.
 
 ---
 
@@ -12,19 +14,23 @@ It automates the complete purchase flow of the Sauce Demo application using the 
 
 This project was built to strengthen my expertise in Playwright and modern test automation framework design.
 
-While I have prior experience with tools such as Selenium, WebdriverIO, UFT, Appium, Karate Framework, and TOSCA, this repository focuses on applying Playwright and TypeScript using clean architecture, Page Object Model (POM), reusable helpers, fixtures, centralized test data, type-safe models, and CI/CD practices.
+While I have prior experience with tools such as Selenium, WebdriverIO, UFT, Appium, Karate Framework, and TOSCA, this repository focuses on applying **Playwright and TypeScript** using clean architecture, Page Object Model (POM), reusable helpers, fixtures, centralized test data, type-safe models, API testing, CI/CD practices, and cross-browser automation.
 
-The framework is designed with separation of concerns in mind, keeping UI interactions, reusable business flows, test data, and test scenarios organized into dedicated layers.
+The framework demonstrates how a test automation solution can evolve from basic UI tests into a more maintainable and scalable automation framework.
 
 ---
 
 ## 🚀 Tech Stack
 
-- Playwright
-- TypeScript
-- Node.js
-- Git
-- GitHub Actions
+* Playwright
+* TypeScript
+* Node.js
+* Git
+* GitHub
+* GitHub Actions
+* REST API Testing
+* dotenv
+* HTML Reporting
 
 ---
 
@@ -35,14 +41,28 @@ playwright-ecommerce-framework/
 │
 ├── .github/
 │   └── workflows/
+│
 ├── api/
+│   ├── clients/
+│   └── types/
+│
+├── components/
+│
 ├── data/
+│
 ├── fixtures/
+│
 ├── helpers/
+│
 ├── pages/
+│
 ├── tests/
-├── types/
+│   ├── api/
+│   ├── negative/
+│   └── smoke/
+│
 ├── utils/
+│
 ├── .gitignore
 ├── package.json
 ├── playwright.config.ts
@@ -52,142 +72,340 @@ playwright-ecommerce-framework/
 
 ### Framework Layers
 
-| Layer | Responsibility |
-|---|---|
-| `pages/` | Page-specific locators and UI interactions |
-| `helpers/` | Reusable business flows and test operations |
-| `fixtures/` | Dependency injection and reusable test setup |
-| `data/` | Centralized JSON test data |
-| `types/` | TypeScript contracts for structured test data |
-| `tests/` | Test scenarios and test assertions |
-| `.github/workflows/` | Continuous Integration configuration |
+| Layer                | Responsibility                                 |
+| -------------------- | ---------------------------------------------- |
+| `pages/`             | Page-specific locators and UI interactions     |
+| `components/`        | Reusable UI components shared across pages     |
+| `helpers/`           | Reusable business flows and test operations    |
+| `fixtures/`          | Dependency injection and reusable test setup   |
+| `api/clients/`       | API-specific request operations                |
+| `api/types/`         | TypeScript contracts for API data              |
+| `data/`              | Centralized JSON test data                     |
+| `utils/`             | Shared utilities and environment configuration |
+| `tests/`             | Test scenarios and assertions                  |
+| `.github/workflows/` | Continuous Integration configuration           |
 
 ---
 
 ## ✅ Test Coverage
 
-The current automation suite covers the complete purchase workflow:
+The automation suite currently covers both UI and API scenarios.
 
-- Login
-- Add Product to Cart
-- Cart Validation
-- Checkout Information
-- Checkout Overview
-- Checkout Completion
-- Return to Inventory
+### UI Test Coverage
 
-The framework currently validates the complete happy-path purchase journey using the Sauce Labs Backpack test product.
+* Login
+* Invalid login scenarios
+* Add Product to Cart
+* Cart Validation
+* Checkout Information
+* Checkout Overview
+* Checkout Completion
+* Return to Inventory
+* End-to-end purchase workflow
+
+### API Test Coverage
+
+* Authentication request
+* Valid authentication credentials
+* Invalid authentication credentials
+* HTTP status validation
+* Response body validation
+* Dynamic authentication token validation
+* Data-driven API authentication scenarios
+
+The UI automation uses **SauceDemo** as the application under test.
+
+API automation uses **Restful Booker** as a separate legitimate API target.
 
 ---
 
 ## 🏗 Framework Design
 
-The framework follows a layered automation architecture based on the Page Object Model and separation of concerns.
+The framework follows a layered automation architecture based on **Page Object Model, separation of concerns, dependency injection, reusable components, and data-driven testing**.
 
 ### Key Components
 
-- **Page Object Model (POM)**  
+* **Page Object Model (POM)**
+
   Encapsulates page-specific locators and UI interactions.
 
-- **Reusable Helpers**  
+* **Reusable Components**
+
+  Encapsulates shared UI functionality that is not specific to a single page.
+
+* **Reusable Helpers**
+
   Encapsulates reusable business flows and reduces duplication across test scenarios.
 
-- **Reusable Fixtures**  
-  Provides centralized dependency injection for Page Objects and Helpers.
+* **Reusable Fixtures**
 
-- **Centralized Test Data**  
-  Stores users, products, checkout information, and validation messages in dedicated JSON files.
+  Provides centralized dependency injection for Page Objects, Components, and Helpers.
 
-- **Type-Safe Test Data Models**  
-  Uses TypeScript interfaces/types to provide structured and type-safe test data.
+* **Centralized Test Data**
 
-- **Separation of Concerns**  
-  Keeps test scenarios, UI interactions, reusable flows, fixtures, and test data in their appropriate layers.
+  Stores users, products, checkout information, authentication data, and validation data in dedicated JSON files.
 
-- **Smoke Test Suite**  
-  Covers the primary end-to-end purchase workflow.
+* **Type-Safe Test Data Models**
 
-- **GitHub Actions CI**  
+  Uses TypeScript interfaces and types to provide structured and type-safe test data.
+
+* **API Client Layer**
+
+  Encapsulates API request operations separately from API test scenarios.
+
+* **Environment-Based Configuration**
+
+  Centralizes environment-specific URLs using environment variables rather than hardcoding them throughout the framework.
+
+* **Separation of Concerns**
+
+  Keeps test scenarios, UI interactions, reusable flows, components, API operations, fixtures, configuration, and test data in their appropriate layers.
+
+* **Data-Driven Testing**
+
+  Separates test data from test logic to make scenarios easier to maintain and extend.
+
+* **Cross-Browser Testing**
+
+  Supports Chromium, Firefox, and WebKit execution.
+
+* **Failure Screenshots**
+
+  Captures screenshots automatically when a test fails to assist with debugging.
+
+* **HTML Reporting**
+
+  Generates Playwright HTML reports for test execution results and failure investigation.
+
+* **GitHub Actions CI**
+
   Integrates automated Playwright test execution into the development workflow.
 
-### Helper Architecture
+---
 
-The current helper layer includes:
+## 🧩 Reusable Component Architecture
+
+Shared UI behavior is extracted into reusable components.
+
+For example, the application's shopping cart navigation is represented by:
 
 ```text
-helpers/
-├── authHelper.ts
-├── inventoryHelper.ts
-├── cartHelper.ts
-├── checkoutHelper.ts
-└── checkoutOverviewHelper.ts
+components/
+└── Header.ts
 ```
 
-Each helper is responsible for a specific area of the application flow, allowing test specifications to remain focused on describing the scenario rather than implementing every individual interaction.
+The `Header` component owns shared header functionality such as opening the shopping cart.
+
+This prevents page-specific objects such as `InventoryPage` from owning functionality that belongs to the application's shared navigation.
+
+The resulting separation is:
+
+```text
+Header
+└── Shared navigation
+    └── openCart()
+
+InventoryPage
+└── Inventory-specific functionality
+
+CartHelper
+├── Header
+└── CartPage
+```
+
+This improves reusability, maintainability, and separation of responsibilities.
 
 ---
 
-## ⚙️ Installation
+## 🔌 API Testing
 
-Clone the repository:
+API testing was introduced as part of the advanced automation phase.
 
-```bash
-git clone <repository-url>
-```
+### API Investigation
 
-Install dependencies:
+Before implementing API automation against SauceDemo, the application's network traffic was investigated to identify a legitimate business API.
 
-```bash
-npm install
-```
+The investigation found:
 
-Install Playwright browsers:
+* Successful login did not generate an application Fetch/XHR authentication request.
+* Invalid login attempts generated a `POST` request to `submit.backtrace.io`.
+* The Backtrace request was identified as third-party error-reporting telemetry rather than a SauceDemo authentication API.
+* Inspection of the frontend JavaScript bundle showed the application's known test usernames and `secret_sauce` password.
 
-```bash
-npx playwright install
-```
+Based on these findings, the Backtrace endpoint was intentionally excluded from API automation.
+
+### Engineering Decision
+
+SauceDemo remains the UI application under test.
+
+API automation uses **Restful Booker** as a separate legitimate API target rather than automating third-party telemetry or misrepresenting it as a SauceDemo business API.
+
+### API Authentication Validation
+
+The authentication tests validate:
+
+* HTTP status code
+* Presence of the authentication token
+* Token is not empty
+* Expected response behavior for invalid credentials
+
+The exact authentication token is not asserted because authentication tokens are dynamically generated and may change between requests.
 
 ---
 
-## ▶️ Running Tests
+## ⚙️ Environment-Based Configuration
 
-Run all tests:
+Environment-specific configuration is centralized in:
 
-```bash
-npx playwright test
+```text
+utils/config.ts
 ```
 
-Run a single test:
+The framework uses environment variables for the UI and API base URLs:
 
-```bash
-npx playwright test tests/smoke/login.spec.ts
+```text
+UI_BASE_URL=https://www.saucedemo.com/
+API_BASE_URL=https://restful-booker.herokuapp.com
 ```
 
-Run in headed mode:
+The local `.env` file is excluded from source control through `.gitignore`.
 
-```bash
-npx playwright test --headed
-```
+This allows configuration to be changed without modifying the test code.
 
-Run in debug mode:
+### CI Configuration
 
-```bash
-npx playwright test --debug
-```
+GitHub Actions provides the required environment variables through the workflow configuration so that CI does not depend on a locally stored `.env` file.
 
-Open the HTML report:
+This keeps environment configuration separate from the automation implementation.
+
+---
+
+## 📊 Reporting
+
+The framework uses Playwright's HTML reporter.
+
+Run:
 
 ```bash
 npx playwright show-report
 ```
 
+Failure screenshots are enabled using:
+
+```typescript
+screenshot: 'only-on-failure'
+```
+
+This provides useful visual evidence when tests fail while avoiding unnecessary screenshots for successful tests.
+
+Tracing is also configured to run on the first retry:
+
+```typescript
+trace: 'on-first-retry'
+```
+
+---
+
+## 🌐 Cross-Browser Testing
+
+The framework supports the following Playwright browser projects:
+
+* Chromium
+* Firefox
+* WebKit
+
+Example configuration:
+
+```typescript
+projects: [
+  {
+    name: 'chromium',
+    use: { ...devices['Desktop Chrome'] },
+  },
+
+  {
+    name: 'firefox',
+    use: { ...devices['Desktop Firefox'] },
+  },
+
+  {
+    name: 'webkit',
+    use: { ...devices['Desktop Safari'] },
+  },
+]
+```
+
+Cross-browser execution helps identify browser-specific behavior and provides broader confidence in the automation suite.
+
 ---
 
 ## 🤖 Continuous Integration
 
-GitHub Actions is configured to execute the Playwright test suite as part of the CI workflow.
+GitHub Actions is configured to execute the Playwright test suite automatically.
 
-This allows automated test execution to be integrated into the repository's development workflow and provides an additional validation layer for changes.
+The CI workflow:
+
+1. Checks out the repository
+2. Sets up Node.js
+3. Installs project dependencies
+4. Installs Playwright browsers
+5. Configures required environment variables
+6. Executes the Playwright test suite
+7. Uploads the Playwright HTML report as an artifact
+
+This provides an additional validation layer whenever changes are pushed to the repository or submitted through a pull request.
+
+---
+
+## 🧪 Running Tests
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Install Playwright Browsers
+
+```bash
+npx playwright install
+```
+
+### Run All Tests
+
+```bash
+npx playwright test
+```
+
+### Run a Single Test
+
+```bash
+npx playwright test tests/smoke/login.spec.ts
+```
+
+### Run in Headed Mode
+
+```bash
+npx playwright test --headed
+```
+
+### Run in Debug Mode
+
+```bash
+npx playwright test --debug
+```
+
+### Open HTML Report
+
+```bash
+npx playwright show-report
+```
+
+### TypeScript Validation
+
+```bash
+npx tsc --noEmit
+```
 
 ---
 
@@ -195,50 +413,92 @@ This allows automated test execution to be integrated into the repository's deve
 
 ### ✅ Phase 1 — Core Framework Implementation
 
-- Login
-- Inventory
-- Cart
-- Checkout
-- Checkout Overview
-- Checkout Complete
-- Page Object Model
-- Reusable Fixtures
-- Centralized Test Data
-- GitHub Actions Integration
+* [x] Login
+* [x] Inventory
+* [x] Cart
+* [x] Checkout
+* [x] Checkout Overview
+* [x] Checkout Complete
+* [x] Page Object Model
+* [x] Reusable Fixtures
+* [x] Centralized Test Data
+* [x] GitHub Actions Integration
 
 ### ✅ Phase 2 — Framework Refactoring
 
-- `beforeEach` Hooks
-- Centralization of Reusable Helpers
-- Checkout Flow Abstraction
-- Implementation of TypeScript Data Types
-- Reduction of Duplicate Code
-- Separation of Test Responsibilities
-- Type-Safe Test Data Models
+* [x] `beforeEach` Hooks
+* [x] Centralization of Reusable Helpers
+* [x] Checkout Flow Abstraction
+* [x] Implementation of TypeScript Data Types
+* [x] Reduction of Duplicate Code
+* [x] Separation of Test Responsibilities
+* [x] Type-Safe Test Data Models
 
-### 🔄 Phase 3 — Advanced Automation
+### ✅ Phase 3 — Advanced Automation
 
-- [x] Negative and Edge-Case Scenarios
-- [x] Advanced Data-Driven Testing
-- [x] API Testing Investigation
-- [ ] API Testing Implementation
-- [ ] Environment-Based Configuration
-- [ ] Reporting Enhancements
-- [ ] Cross-Browser Test Execution
-- [ ] Additional Reusable Components
+* [x] Negative and Edge-Case Scenarios
+* [x] Advanced Data-Driven Testing
+* [x] API Testing Investigation
+* [x] API Testing Implementation
+* [x] Environment-Based Configuration
+* [x] Reporting Enhancements
+* [x] Cross-Browser Test Execution
+* [x] Additional Reusable Components
 
-#### API Testing Investigation
+---
 
-Before implementing API tests, the SauceDemo application's network traffic was investigated to identify a legitimate business API.
+## 📝 Engineering Decisions
 
-- Successful login did not generate an application Fetch/XHR authentication request.
-- Invalid login attempts generated a `POST` request to `submit.backtrace.io`.
-- The Backtrace request was identified as third-party error-reporting telemetry rather than a SauceDemo authentication API.
-- Inspection of the frontend JavaScript bundle showed the application's known test usernames and `secret_sauce` password.
-- Based on these findings, the Backtrace endpoint was intentionally excluded from API automation.
+### Why use Page Objects?
 
-**Engineering Decision:** SauceDemo remains the UI application under test. API automation will use a separate legitimate API target rather than fabricating or misrepresenting a SauceDemo authentication API.
+Page Objects isolate page-specific UI interactions from test scenarios, making the framework easier to maintain when locators or page behavior change.
+
+### Why use Helpers?
+
+Helpers encapsulate reusable business flows so that test specifications can focus on describing the scenario rather than implementing every individual interaction.
+
+### Why use Fixtures?
+
+Fixtures provide centralized dependency injection for Page Objects, Components, and Helpers, reducing repetitive setup code across tests.
+
+### Why use Data-Driven Testing?
+
+Test data is separated from test logic, making it easier to add new scenarios without duplicating test implementation.
+
+### Why use API Testing alongside UI Testing?
+
+API tests provide faster and more focused validation of backend behavior, while UI tests validate the complete user-facing workflow. Using both layers improves coverage and helps isolate failures more effectively.
+
+### Why use a separate API target?
+
+The SauceDemo investigation did not identify a legitimate business authentication API. The observed Backtrace request was third-party telemetry, so Restful Booker was selected as a legitimate API target for demonstrating API automation.
+
+### Why use Environment-Based Configuration?
+
+Environment variables prevent environment-specific URLs from being hardcoded throughout the framework and allow local and CI environments to use different configuration values.
+
+### Why create a reusable Header component?
+
+The shopping cart navigation belongs to the application's shared header rather than specifically to the inventory page. Moving this functionality into a reusable `Header` component reduces coupling and improves separation of concerns.
+
+---
+
+## 📈 Current Validation
+
+The framework has been validated through:
+
+* TypeScript compilation
+* Local Playwright execution
+* Chromium execution
+* Firefox execution
+* WebKit execution
+* Full regression testing
+* GitHub Actions CI execution
+
+The current full suite contains **30 tests**, with the latest local and GitHub Actions regression runs passing successfully.
+
+---
 
 ## 👨‍💻 Author
 
-Developed by Rex Melvin Villaruel using Playwright and TypeScript as a portfolio project focused on modern UI test automation, scalable framework design, and continuous upskilling in Playwright.
+Developed by **Rex Melvin Villaruel** using Playwright and TypeScript as a portfolio project focused on modern UI and API test automation, scalable framework design, cross-browser testing, CI/CD, and continuous improvement in test automation engineering.

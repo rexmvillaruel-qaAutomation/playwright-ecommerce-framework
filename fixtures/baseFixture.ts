@@ -54,7 +54,7 @@ const test = base.extend<Fixtures>({
   },
   
   header: async ({ page }, use) => {
-  await use(new Header(page));
+    await use(new Header(page));
   },
 
   // Helpers:
