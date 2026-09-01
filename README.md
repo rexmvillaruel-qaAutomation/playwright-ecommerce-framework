@@ -59,6 +59,7 @@ playwright-ecommerce-framework/
 ├── tests/
 │   ├── api/
 │   ├── negative/
+│   ├── regression/
 │   └── smoke/
 │
 ├── utils/
@@ -515,10 +516,10 @@ The framework has been validated through:
 * Chromium execution
 * Firefox execution
 * WebKit execution
-* Full regression testing
+* Full test suite execution
 * GitHub Actions CI execution
 
-The current full suite contains **30 tests**, with the latest local and GitHub Actions regression runs passing successfully.
+The current full suite contains **30 tests**, with the latest local and GitHub Actions CI runs passing successfully.
 
 ---
 
