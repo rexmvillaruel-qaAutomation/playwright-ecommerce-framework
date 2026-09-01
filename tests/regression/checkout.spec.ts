@@ -1,4 +1,5 @@
 import { test } from '../../fixtures/baseFixture';
+import messages from '../../data/messages.json';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
 
@@ -14,7 +15,7 @@ test.beforeEach(async ({ authHelper }) => {
 // Test Scenario:
 
    test('Complete checkout information and continue', async (
-    { inventoryHelper, cartHelper, checkoutHelper }) => {
+    { inventoryHelper, cartHelper, checkoutHelper, checkoutOverviewPage  }) => {
 
 // Inventory    
     await inventoryHelper.addProductToCart(
@@ -32,4 +33,8 @@ test.beforeEach(async ({ authHelper }) => {
       users.standardUser.postalCode
    );
 
+// Checkout Overview
+   await checkoutOverviewPage.verifyPageLoaded(
+      messages.overview.title
+   );
 });

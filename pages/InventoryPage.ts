@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { ProductDetails } from '../types/product';
 
 export class InventoryPage {
   readonly page: Page;
@@ -16,10 +17,10 @@ export class InventoryPage {
     await expect(this.inventoryContainer).toBeVisible();
   }
 
-  async addProductToCart(productDetails: any) {
+  async addProductToCart(productDetails: ProductDetails) {
     await this.page
-      .locator(`[data-test="add-to-cart-${productDetails.locatorId}"]`)
-      .click();
+     .locator(`[data-test="add-to-cart-${productDetails.locatorId}"]`)
+     .click();
   }
 
   async verifyCartBadge(expectedCount: string) {

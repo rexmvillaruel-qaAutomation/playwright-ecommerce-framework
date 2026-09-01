@@ -1,5 +1,6 @@
 
 import { InventoryPage } from '../pages/InventoryPage';
+import { ProductDetails } from '../types/product';
     
     export class InventoryHelper {
         
@@ -8,10 +9,10 @@ import { InventoryPage } from '../pages/InventoryPage';
         constructor(inventoryPage: InventoryPage) {
             this.inventoryPage = inventoryPage;
         }
-    async addProductToCart (productDetails: any){
-        
-         await this.inventoryPage.addProductToCart(productDetails);   
-         await this.inventoryPage.verifyCartBadge(
-            productDetails.cartbadgeCount);
-        }      
+    async addProductToCart(productDetails: ProductDetails) {
+        await this.inventoryPage.addProductToCart(productDetails);
+        await this.inventoryPage.verifyCartBadge(
+        productDetails.cartbadgeCount
+        );
     }
+}
