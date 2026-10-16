@@ -1,17 +1,22 @@
-import { test } from '../../fixtures/baseFixture';
+
+import { expect, test } from '../../fixtures/baseFixture';
 import negativeLogindata from '../../data/negativeLoginData.json';
 
- Object.values(negativeLogindata).forEach(testCase => {
+Object.values(negativeLogindata).forEach(testCase => {
+  test(testCase.testName, async ({ loginPage }) => {
     
- test(testCase.testName, async ({ loginPage }) => {
- //Open Login page   
-    await loginPage.goto()
-// Login using credentials   
+    // Open Login page
+    await loginPage.goto();
+
+    // Login using credentials
     await loginPage.login(
-        testCase.username, 
-        testCase.password)
-// Verify error message
-    await loginPage.verifyLoginError(
-        testCase.expectedMessage)
-        })
- });
+      testCase.username,
+      testCase.password
+    );
+
+    // Verify error message
+    await expect(loginPage.errorMessage).toHaveText(
+      testCase.expectedMessage
+    );
+  });
+});

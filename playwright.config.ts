@@ -23,6 +23,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: config.uiBaseUrl,
+    testIdAttribute: 'data-test',
   //  headless: false,
  //   viewport: null,
  //launchOptions: {

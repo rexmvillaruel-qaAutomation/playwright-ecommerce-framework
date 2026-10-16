@@ -1,27 +1,29 @@
-import { test } from '../../fixtures/baseFixture';
+
+import { expect, test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
 
-
 // Common Setup
 test.beforeEach(async ({ authHelper }) => {
-// Login
   await authHelper.loginAs(
     users.standardUser.username,
     users.standardUser.password
-      );
-   });
+  );
+});
 
-// Test Scenario:
+// Test Scenario
+test('Verify added item appears in cart', async ({
+  inventoryHelper,
+  cartHelper,
+  cartPage,
+}) => {
+  // Add product to cart
+  await inventoryHelper.addProductToCart(products.backpack);
 
-   test('Verify added item appears in cart', async ({inventoryHelper, cartHelper }) => {
- 
-// Inventory    
-    await inventoryHelper.addProductToCart(
-      products.backpack
-      );
-// Cart
-    await cartHelper.openCart();
-    await cartHelper.verifyAddedProduct();
-  });
-  
+  // Open cart
+  await cartHelper.openCart();
+
+  // Validate cart item
+  await expect(cartPage.cartItem).toHaveCount(1);
+  await expect(cartPage.cartItem.first()).toBeVisible();
+});

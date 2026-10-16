@@ -1,3 +1,4 @@
+
 import { Header } from '../components/Header';
 import { CartPage } from '../pages/CartPage';
 
@@ -12,9 +13,5 @@ export class CartHelper {
 
   async openCart() {
     await this.header.openCart();
-  }
-
-  async verifyAddedProduct() {
-    await this.cartPage.verifyCartItemVisible();
   }
 }

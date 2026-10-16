@@ -1,13 +1,17 @@
-import { test } from '../../fixtures/baseFixture';
+
+import { expect, test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 
 test('Valid user login', async ({ loginPage, inventoryPage }) => {
+  // Navigate to login page
   await loginPage.goto();
-// Login
+
+  // Perform login
   await loginPage.login(
     users.standardUser.username,
     users.standardUser.password
   );
-// Inventory
-  await inventoryPage.verifyLoaded();
+
+  // Validate successful login
+  await expect(inventoryPage.inventoryContainer).toBeVisible();
 });
