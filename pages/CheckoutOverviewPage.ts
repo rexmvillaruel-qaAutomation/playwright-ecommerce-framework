@@ -1,4 +1,3 @@
-
 import { Locator, Page } from '@playwright/test';
 
 export class CheckoutOverviewPage {
@@ -29,7 +28,8 @@ export class CheckoutOverviewPage {
     this.finishButton = page.locator('#finish');
   }
 
-  async completeCheckout() {
+  // Action: Finish the checkout process
+  async completeCheckout(): Promise<void> {
     await this.finishButton.click();
   }
 }

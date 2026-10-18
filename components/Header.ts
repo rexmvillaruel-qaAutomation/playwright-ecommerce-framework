@@ -1,3 +1,4 @@
+
 import { Locator, Page } from '@playwright/test';
 
 export class Header {
@@ -9,7 +10,7 @@ export class Header {
     this.shoppingCartLink = page.locator('.shopping_cart_link');
   }
 
-  async openCart() {
+  async openCart(): Promise<void> {
     await this.shoppingCartLink.click();
   }
 }

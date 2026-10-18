@@ -1,4 +1,3 @@
-
 import { test as base } from '@playwright/test';
 
 import { LoginPage } from '../pages/LoginPage';
@@ -7,12 +6,6 @@ import { CartPage } from '../pages/CartPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { CheckoutOverviewPage } from '../pages/CheckoutOverviewPage';
 import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
-
-import { AuthHelper } from '../helpers/authHelper';
-import { InventoryHelper } from '../helpers/inventoryHelper';
-import { CartHelper } from '../helpers/cartHelper';
-import { CheckoutHelper } from '../helpers/checkoutHelper';
-import { CheckoutOverviewHelper } from '../helpers/checkoutOverviewHelper';
 
 import { Header } from '../components/Header';
 
@@ -24,12 +17,6 @@ type Fixtures = {
   checkoutOverviewPage: CheckoutOverviewPage;
   checkoutCompletePage: CheckoutCompletePage;
   header: Header;
-
-  authHelper: AuthHelper;
-  inventoryHelper: InventoryHelper;
-  cartHelper: CartHelper;
-  checkoutHelper: CheckoutHelper;
-  checkoutOverviewHelper: CheckoutOverviewHelper;
 };
 
 // Pages and components
@@ -60,27 +47,6 @@ const test = base.extend<Fixtures>({
 
   header: async ({ page }, use) => {
     await use(new Header(page));
-  },
-
-  // Helpers
-  authHelper: async ({ loginPage }, use) => {
-    await use(new AuthHelper(loginPage));
-  },
-
-  inventoryHelper: async ({ inventoryPage }, use) => {
-    await use(new InventoryHelper(inventoryPage));
-  },
-
-  cartHelper: async ({ header, cartPage }, use) => {
-    await use(new CartHelper(header, cartPage));
-  },
-
-  checkoutHelper: async ({ cartPage, checkoutPage }, use) => {
-    await use(new CheckoutHelper(cartPage, checkoutPage));
-  },
-
-  checkoutOverviewHelper: async ({ checkoutOverviewPage }, use) => {
-    await use(new CheckoutOverviewHelper(checkoutOverviewPage));
   },
 });
 

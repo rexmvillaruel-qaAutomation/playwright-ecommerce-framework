@@ -1,4 +1,3 @@
-
 import { Locator, Page } from '@playwright/test';
 
 export class CheckoutCompletePage {
@@ -19,11 +18,13 @@ export class CheckoutCompletePage {
     this.generatePdfButton = page.getByTestId('generate-pdf-order');
   }
 
-  async clickBackHome() {
+  // Action: Return to the inventory page
+  async clickBackHome(): Promise<void> {
     await this.backHomeButton.click();
   }
 
-  async generatePdf() {
+  // Action: Generate the order PDF
+  async generatePdf(): Promise<void> {
     await this.generatePdfButton.click();
   }
 }

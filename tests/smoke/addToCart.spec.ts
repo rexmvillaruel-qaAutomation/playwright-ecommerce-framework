@@ -3,19 +3,21 @@ import { expect, test } from '../../fixtures/baseFixture';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
 
-// Common Setup
-test.beforeEach(async ({ authHelper }) => {
-  await authHelper.loginAs(
+test('Add product to cart', async ({
+  loginPage,
+  inventoryPage,
+}) => {
+  // Arrange: Log in as a standard user
+  await loginPage.goto();
+  await loginPage.login(
     users.standardUser.username,
     users.standardUser.password
   );
-});
 
-// Test Scenario
-test('Add product to cart', async ({ inventoryHelper, inventoryPage }) => {
-  await inventoryHelper.addProductToCart(products.backpack);
+  // Act: Add the backpack to the cart
+  await inventoryPage.addProductToCart(products.backpack);
 
-  // Validate cart badge
+  // Assert: Verify the cart badge count
   await expect(inventoryPage.cartBadge).toHaveText(
     products.backpack.cartbadgeCount
   );

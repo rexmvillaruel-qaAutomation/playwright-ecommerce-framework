@@ -17,17 +17,19 @@ export class CheckoutPage {
     this.continueButton = page.getByTestId('continue');
   }
 
+  // Action: Fill in the required checkout information
   async fillCheckoutInformation(
     firstName: string,
     lastName: string,
     postalCode: string
-  ) {
+  ): Promise<void> {
     await this.firstNameInput.fill(firstName);
     await this.lastNameInput.fill(lastName);
     await this.postalCodeInput.fill(postalCode);
   }
 
-  async continueCheckout() {
+  // Action: Continue to checkout overview
+  async continueCheckout(): Promise<void> {
     await this.continueButton.click();
   }
 }

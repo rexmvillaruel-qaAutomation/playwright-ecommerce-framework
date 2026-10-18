@@ -1,43 +1,49 @@
-
 import { expect, test } from '../../fixtures/baseFixture';
 import messages from '../../data/messages.json';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
 
-// Common Setup
-test.beforeEach(async ({ authHelper }) => {
-  await authHelper.loginAs(
-    users.standardUser.username,
-    users.standardUser.password
-  );
-});
-
-// Test Scenario
 test(
   'Complete checkout information and continue',
   async ({
-    inventoryHelper,
-    cartHelper,
-    checkoutHelper,
+    loginPage,
+    inventoryPage,
+    header,
     cartPage,
+    checkoutPage,
     checkoutOverviewPage,
   }) => {
-    // Inventory
-    await inventoryHelper.addProductToCart(products.backpack);
+    // Arrange: Log in as a standard user
+    await loginPage.goto();
+    await loginPage.login(
+      users.standardUser.username,
+      users.standardUser.password
+    );
 
-    // Cart
-    await cartHelper.openCart();
+    // Act: Add the backpack to the cart
+    await inventoryPage.addProductToCart(products.backpack);
+
+    // Act: Open the cart
+    await header.openCart();
+
+    // Assert: Verify the cart contains exactly one visible item
     await expect(cartPage.cartItem).toHaveCount(1);
     await expect(cartPage.cartItem.first()).toBeVisible();
 
-    // Checkout
-    await checkoutHelper.proceedToCheckout(
+    // Act: Open checkout from the cart
+    await cartPage.clickCheckout();
+
+    // Act: Enter customer information
+    await checkoutPage.fillCheckoutInformation(
       users.standardUser.firstName,
       users.standardUser.lastName,
       users.standardUser.postalCode
     );
 
-    // Checkout Overview
+    // Act: Continue to checkout overview
+    await checkoutPage.continueCheckout();
+
+    // Assert: Verify navigation to the checkout overview
     await expect(checkoutOverviewPage.pageTitle).toHaveText(
       messages.overview.title
     );

@@ -12,7 +12,7 @@ export class CartPage {
     this.checkoutButton = page.getByTestId('checkout');
   }
 
-  async clickCheckout() {
+  async clickCheckout(): Promise<void> {
     await this.checkoutButton.click();
   }
 }

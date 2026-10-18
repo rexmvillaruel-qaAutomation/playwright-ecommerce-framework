@@ -9,14 +9,17 @@ export class InventoryPage {
 
   constructor(page: Page) {
     this.page = page;
-
     this.inventoryContainer = page.getByTestId('inventory-container');
     this.cartBadge = page.getByTestId('shopping-cart-badge');
   }
 
-  async addProductToCart(productDetails: ProductDetails) {
-    await this.page
-      .getByTestId(`add-to-cart-${productDetails.locatorId}`)
-      .click();
+  productAddToCartButton(productDetails: ProductDetails): Locator {
+    return this.page.getByTestId(
+      `add-to-cart-${productDetails.locatorId}`
+    );
+  }
+
+  async addProductToCart(productDetails: ProductDetails): Promise<void> {
+    await this.productAddToCartButton(productDetails).click();
   }
 }
