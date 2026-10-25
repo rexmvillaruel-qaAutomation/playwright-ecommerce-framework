@@ -1,82 +1,87 @@
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-import { defineConfig, devices } from '@playwright/test';
-import { config } from './utils/config';
 
 /**
- * See https://playwright.dev/docs/test-configuration.
+ * Import Playwright configuration helpers and browser device presets.
  */
+import { defineConfig, devices } from '@playwright/test';
+
+/**
+ * Load validated environment configuration, including the UI base URL.
+ */
+import { config } from './utils/config';
+
 export default defineConfig({
+  // Root directory containing all UI and API test files.
   testDir: './tests',
-  /* Run tests in files in parallel */
+
+  // Allow independent tests to run in parallel.
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+
+  // Prevent accidental test.only usage in CI.
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
+
+  // Retry failed tests twice in CI; do not retry locally.
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+
+  // Use one worker in CI for more predictable execution.
+  // Locally, let Playwright choose the default worker count.
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+
+  // Generate an HTML report after the test run.
   reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
+  // Default settings shared by the projects below.
   use: {
+    // Base URL for UI tests.
     baseURL: config.uiBaseUrl,
+
+    // Use data-test attributes with getByTestId().
     testIdAttribute: 'data-test',
-  //  headless: false,
- //   viewport: null,
- //launchOptions: {
-    //  args: ['--start-maximized'],
-     // slowMo: 500,
-//  },
+
+    // Capture screenshots only when a test fails.
     screenshot: 'only-on-failure',
+
+    // Capture a trace when a test is retried.
     trace: 'on-first-retry',
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
+      // Run UI tests in the Chromium browser.
       name: 'chromium',
+
+      // Include only smoke, regression, and negative UI tests.
+      testMatch: /(?:smoke|regression|negative)\/.*\.spec\.ts$/,
+
+      // Use the default desktop Chrome-like browser configuration.
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      // Run the same UI suites in Firefox.
+        name: 'firefox',
+        testMatch: /(?:smoke|regression|negative)\/.*\.spec\.ts$/,
+        use: { ...devices['Desktop Firefox'] },
     },
 
     {
+      // Run the same UI suites in WebKit.
       name: 'webkit',
+      testMatch: /(?:smoke|regression|negative)\/.*\.spec\.ts$/,
       use: { ...devices['Desktop Safari'] },
     },
+
+    {
+      // Run API tests separately, without a browser project.
+      name: 'api',
+
+      // Include only API spec files.
+      testMatch: /api\/.*\.spec\.ts$/,
+
+      // API tests should configure their own APIRequestContext or API fixture.
+      // No browser device is configured for this project.
+      use: {
+        baseURL: undefined,
+      },
+    },
   ],
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
-  
 });

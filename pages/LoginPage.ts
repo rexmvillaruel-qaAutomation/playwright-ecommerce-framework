@@ -15,19 +15,25 @@ export class LoginPage {
       name: 'Username',
     });
 
-    this.passwordInput = page.locator('#password');
+    this.passwordInput = page.getByRole('textbox', {
+      name: 'Password',
+    });
 
     this.loginButton = page.getByRole('button', {
       name: 'Login',
     });
 
-    this.errorMessage = page.getByTestId('error');
+    this.errorMessage = this.page.getByTestId('error');
   }
 
+  
   async goto() {
-    await this.page.goto('/');
-  }
-
+  // Wait for the initial HTML document to be parsed.
+  // This avoids waiting for every resource to finish loading.
+    await this.page.goto('/', {
+      waitUntil: 'domcontentloaded',
+  });
+}
   async login(username: string, password: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
