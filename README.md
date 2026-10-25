@@ -625,6 +625,64 @@ The full test suite has passed **30 tests out of 30** in the reported refactorin
 
 ---
 
+## Interactive Playwright Test Runner
+
+This framework includes an interactive CLI runner that allows users to select which tests to execute without manually typing Playwright commands.
+
+### Start the Test Runner
+
+Run the following command from the project root:
+
+```bash
+npm run runner
+```
+
+### Available Test Options
+
+**1. UI Tests**
+
+Choose a UI test suite:
+
+- **Smoke** — Run smoke tests.
+- **Regression** — Run regression tests.
+- **Negative** — Run negative test scenarios.
+- **All UI Suites** — Run all smoke, regression, and negative tests.
+
+Choose the browser:
+
+- Chromium
+- Firefox
+- WebKit
+- All Browsers
+
+Choose the execution mode:
+
+- **Headed** — Display the browser during test execution.
+- **Headless** — Run tests without displaying the browser window.
+
+**2. API Tests**
+
+Run API tests using the dedicated `api` Playwright project.
+
+**3. All Tests**
+
+Run all configured test projects:
+
+- Chromium UI tests
+- Firefox UI tests
+- WebKit UI tests
+- API tests
+
+### Key Benefits
+
+- Simplifies test execution through an interactive terminal menu.
+- Supports selective execution of UI test suites and API tests.
+- Enables cross-browser testing with Chromium, Firefox, and WebKit.
+- Supports both headed and headless UI execution.
+- Provides a convenient entry point for local test execution.
+
+---
+
 ## 👨‍💻 Author
 
 Developed by **Rex Melvin Villaruel** using Playwright and TypeScript as a portfolio project focused on modern UI and API test automation, maintainable framework design, cross-browser testing, CI/CD, and continuous improvement in test automation engineering.
