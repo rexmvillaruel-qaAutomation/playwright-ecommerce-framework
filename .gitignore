@@ -8,4 +8,9 @@ node_modules/
 /playwright/.auth/
 
 # Environment variables
+# Ignore local environment files containing secrets
 .env
+.env.*
+
+# Allow the environment variable template to be committed
+!.env.example

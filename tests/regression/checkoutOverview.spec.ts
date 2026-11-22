@@ -3,6 +3,7 @@ import users from '../../data/users.json';
 import products from '../../data/products.json';
 import checkout from '../../data/checkout.json';
 import messages from '../../data/messages.json';
+import { withDecryptedPassword } from '../../utils/credentials';
 
 test(
   'Verify checkout overview information',
@@ -14,11 +15,15 @@ test(
     checkoutPage,
     checkoutOverviewPage,
   }) => {
+
+     // Decrypt the standard user's password before authentication.
+    const standardUser = withDecryptedPassword(users.standardUser);
+
     // Arrange: Log in as a standard user
     await loginPage.goto();
     await loginPage.login(
-      users.standardUser.username,
-      users.standardUser.password
+        standardUser.username,
+        standardUser.password
     );
 
     // Act: Add the backpack to the cart

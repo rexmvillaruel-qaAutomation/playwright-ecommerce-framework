@@ -2,13 +2,13 @@
  "invalidUser": {
     "testName": "Invalid user login",
     "username": "standard_user",
-    "password": "xpassword",
+    "password": "17bb502e1134ec5f1fe482d8:3fcf817aedae6c8f1afcfaf1f4ab8c63:afbbaa8462be36d820",
     "expectedMessage": "Epic sadface: Username and password do not match any user in this service"
   },
  "lockoutUser": {
     "testName": "Lockout user login",
     "username": "locked_out_user",
-    "password": "secret_sauce",
-    "expectedMessage": "Epic sadface: Sorry, this user has been locked out."
+    "password": "0e784d4a30106769112ad47d:8f8cc9ec2cf16b1504df96e289a70f02:aeddf583b60006f48b054563",
+    "expectedMessage": "Epic sadface: Username and password do not match any user in this service"
   }
 }

@@ -29,6 +29,9 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
+      env:
+        # Supply the decryption key only during test execution.
+        ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       run: npx playwright test
 
     - uses: actions/upload-artifact@v7

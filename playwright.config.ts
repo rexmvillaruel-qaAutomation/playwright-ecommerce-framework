@@ -83,5 +83,19 @@ export default defineConfig({
         baseURL: undefined,
       },
     },
+
+    {
+      // Run utility unit tests independently of UI and API tests.
+      name: 'unit',
+
+      // Include only test files inside the unit directory.
+      testMatch: /unit\/.*\.spec\.ts$/,
+
+      // Unit tests do not require a browser or application base URL.
+      use: {
+        baseURL: undefined,
+      },
+    },
+
   ],
 });

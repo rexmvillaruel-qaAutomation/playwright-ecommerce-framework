@@ -2,6 +2,7 @@ import { expect, test } from '../../fixtures/baseFixture';
 import messages from '../../data/messages.json';
 import users from '../../data/users.json';
 import products from '../../data/products.json';
+import { withDecryptedPassword } from '../../utils/credentials';
 
 test(
   'Complete checkout information and continue',
@@ -13,11 +14,15 @@ test(
     checkoutPage,
     checkoutOverviewPage,
   }) => {
+
+     // Decrypt the standard user's password before authentication.
+    const standardUser = withDecryptedPassword(users.standardUser);
+
     // Arrange: Log in as a standard user
     await loginPage.goto();
     await loginPage.login(
-      users.standardUser.username,
-      users.standardUser.password
+        standardUser.username,
+        standardUser.password
     );
 
     // Act: Add the backpack to the cart

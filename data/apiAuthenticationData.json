@@ -2,7 +2,7 @@
   "validCredentials": {
     "testName": "Create Auth Token - Valid Credentials",
     "username": "admin",
-    "password": "password123",
+    "password": "d0437f7ed9cb32109403c5fe:7770535875e5487bc3159f0515603b2b:7633bbdb373c68c9c84386",
     "expectedStatus": 200,
     "expectedToken": true,
     "expectedReason": null
@@ -10,7 +10,7 @@
   "invalidCredentials": {
     "testName": "Negative - Create Auth Token with Invalid Credentials",
     "username": "admin",
-    "password": "wrongpassword",
+    "password": "5bdf2c48218b7850054e30b4:591e6b3518cc8f2459e056198febc039:76bda4a7208892fa30ae243687",
     "expectedStatus": 200,
     "expectedToken": false,
     "expectedReason": "Bad credentials"
