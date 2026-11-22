@@ -1,3 +1,4 @@
+
 # Playwright E-Commerce Automation Framework
 
 ## 📌 Project Overview
@@ -21,12 +22,19 @@ The framework demonstrates how an automation solution can evolve through impleme
 ## 🚀 Tech Stack
 
 - Playwright
+
 - TypeScript
+
 - Node.js
+
 - Git and GitHub
+
 - GitHub Actions
+
 - REST API Testing
+
 - dotenv
+
 - Playwright HTML Reporting
 
 ---
@@ -35,34 +43,63 @@ The framework demonstrates how an automation solution can evolve through impleme
 
 ```text
 playwright-ecommerce-framework/
+
 │
+
 ├── .github/
+
 │   └── workflows/
+
 │
+
 ├── api/
+
 │   ├── clients/
+
 │   └── types/
+
 │
+
 ├── components/
+
 │
+
 ├── data/
+
 │
+
 ├── fixtures/
+
 │
+
 ├── pages/
+
 │
+
 ├── tests/
+
 │   ├── api/
+
 │   ├── negative/
+
 │   ├── regression/
+
 │   └── smoke/
+
 │
+
 ├── utils/
+
 │
+
 ├── .gitignore
+
 ├── package.json
+
 ├── playwright.config.ts
+
 ├── tsconfig.json
+
 └── README.md
 ```
 
@@ -102,23 +139,37 @@ The automation suite covers both UI and API scenarios.
 ### UI Test Coverage
 
 - Login
+
 - Invalid login scenarios
+
 - Add Product to Cart
+
 - Cart Validation
+
 - Checkout Information
+
 - Checkout Overview
+
 - Checkout Completion
+
 - Return to Inventory
+
 - End-to-end purchase workflow
 
 ### API Test Coverage
 
 - Authentication requests
+
 - Valid authentication credentials
+
 - Invalid authentication credentials
+
 - HTTP status validation
+
 - Response body validation
+
 - Dynamic authentication token validation
+
 - Data-driven API authentication scenarios
 
 The UI automation uses **SauceDemo** as the application under test.
@@ -191,6 +242,7 @@ For example:
 
 ```text
 components/
+
 └── Header.ts
 ```
 
@@ -202,13 +254,17 @@ The responsibilities are separated as follows:
 
 ```text
 Header
+
 └── Shared navigation
+
     └── openCart()
 
 InventoryPage
+
 └── Inventory-specific locators and actions
 
 CartPage
+
 └── Cart-specific locators and actions
 ```
 
@@ -223,8 +279,11 @@ Test specs coordinate these objects to execute a scenario. This makes the workfl
 Page Objects and components are responsible for:
 
 - Defining relevant locators.
+
 - Encapsulating UI interactions.
+
 - Providing reusable actions.
+
 - Hiding low-level interaction details from test scenarios.
 
 They do not own scenario-specific assertions.
@@ -234,8 +293,11 @@ They do not own scenario-specific assertions.
 Test specs are responsible for:
 
 - Orchestrating the test workflow.
+
 - Calling Page Object and component actions.
+
 - Defining expected application behavior.
+
 - Performing assertions using Playwright's `expect` API.
 
 For example, a Page Object can expose a locator for the inventory container, while the test spec verifies that the container is visible.
@@ -263,8 +325,11 @@ The decision to refactor was based on the actual responsibilities of those class
 The following Helpers were removed after reviewing their implementation:
 
 - **`InventoryHelper`** — primarily forwarded product-addition operations to `InventoryPage`.
+
 - **`CartHelper`** — forwarded cart navigation to `Header` without providing meaningful additional behavior.
+
 - **`CheckoutHelper`** — wrapped a straightforward checkout sequence that could be expressed clearly through existing Page Object actions.
+
 - **`CheckoutOverviewHelper`** — primarily held a reference to `CheckoutOverviewPage` without providing meaningful additional functionality.
 
 These abstractions introduced additional indirection without enough benefit to justify their maintenance cost.
@@ -278,10 +343,15 @@ The test specs now call the relevant Page Object actions directly.
 For example, a checkout scenario can express its sequence as:
 
 1. Open the cart.
+
 2. Proceed to checkout.
+
 3. Enter checkout information.
+
 4. Continue to the order overview.
+
 5. Complete the purchase when required.
+
 6. Verify the expected results.
 
 This makes the scenario easier to understand during code review because the sequence of actions is visible in the test itself.
@@ -295,6 +365,7 @@ A workflow abstraction may be reintroduced if future requirements introduce subs
 The refactoring establishes a clear boundary between executing actions and verifying results.
 
 - **Page Objects and components** expose locators and perform UI actions.
+
 - **Test specs** define expected behavior and execute assertions.
 
 This avoids coupling Page Objects to individual test expectations. It also makes each test's purpose easier to identify and keeps UI interaction code reusable.
@@ -314,10 +385,15 @@ The refactoring focuses on reducing unnecessary indirection without sacrificing 
 Its main benefits are:
 
 - More transparent test workflows.
+
 - Clearer ownership of UI actions and assertions.
+
 - Fewer unnecessary abstraction layers.
+
 - Simpler fixture registration.
+
 - Easier code review and maintenance.
+
 - A design that can accommodate additional abstractions when future complexity justifies them.
 
 The objective is not to eliminate Helpers permanently. It is to ensure every abstraction has a clear responsibility and provides enough value to justify its existence.
@@ -333,9 +409,13 @@ This result provides evidence that the refactoring preserved the tested behavior
 This refactoring reinforced several software engineering principles:
 
 - **Abstractions should provide meaningful value.** A separate class is not automatically beneficial simply because it separates code into another file.
+
 - **Separation of concerns should clarify responsibilities.** Page Objects, components, fixtures, and test specs have distinct roles.
+
 - **Test intent should be visible.** Scenario orchestration and assertions belong in the specs so that expected behavior is easy to understand.
+
 - **Architecture should evolve with evidence.** The original Helper design addressed a reasonable concern, but code review showed that direct calls were more appropriate for the current level of complexity.
+
 - **Avoid both under-abstraction and over-abstraction.** Introduce additional layers when complexity, reuse, or maintainability provides a clear justification.
 
 ---
@@ -351,8 +431,11 @@ Before implementing API automation against SauceDemo, the application's network 
 The investigation found:
 
 - Successful login did not generate an application Fetch/XHR authentication request.
+
 - Invalid login attempts generated a `POST` request to `submit.backtrace.io`.
+
 - The Backtrace request was identified as third-party error-reporting telemetry rather than a SauceDemo authentication API.
+
 - Inspection of the frontend JavaScript bundle showed the application's known test usernames and `secret_sauce` password.
 
 Based on these findings, the Backtrace endpoint was intentionally excluded from API automation.
@@ -368,8 +451,11 @@ API automation uses **Restful Booker** as a separate API target rather than auto
 The authentication tests validate:
 
 - HTTP status code.
+
 - Presence of the authentication token.
+
 - Non-empty token value.
+
 - Expected response behavior for invalid credentials.
 
 The exact authentication token is not asserted because tokens are dynamically generated and may change between requests.
@@ -387,8 +473,9 @@ utils/config.ts
 The framework uses environment variables for the UI and API base URLs:
 
 ```dotenv
-UI_BASE_URL=https://www.saucedemo.com/
-API_BASE_URL=https://restful-booker.herokuapp.com
+UI_BASE_URL=[https://www.saucedemo.com/](https://www.saucedemo.com/)
+
+API_BASE_URL=[https://restful-booker.herokuapp.com](https://restful-booker.herokuapp.com)
 ```
 
 The local `.env` file is excluded from source control through `.gitignore`.
@@ -434,25 +521,40 @@ This provides useful visual and diagnostic evidence when tests fail while avoidi
 The framework supports the following Playwright browser projects:
 
 - Chromium
+
 - Firefox
+
 - WebKit
 
 Example configuration:
 
 ```typescript
 projects: [
+
   {
+
     name: 'chromium',
+
     use: { ...devices['Desktop Chrome'] },
+
   },
+
   {
+
     name: 'firefox',
+
     use: { ...devices['Desktop Firefox'] },
+
   },
+
   {
+
     name: 'webkit',
+
     use: { ...devices['Desktop Safari'] },
+
   },
+
 ]
 ```
 
@@ -467,11 +569,17 @@ GitHub Actions is configured to execute the Playwright test suite automatically.
 The CI workflow:
 
 1. Checks out the repository.
+
 2. Sets up Node.js.
+
 3. Installs project dependencies.
+
 4. Installs Playwright browsers.
+
 5. Configures required environment variables.
+
 6. Executes the Playwright test suite.
+
 7. Uploads the Playwright HTML report as an artifact.
 
 This provides an additional validation layer when changes are pushed to the repository or submitted through a pull request.
@@ -535,36 +643,59 @@ npx tsc --noEmit
 ### ✅ Phase 1 — Core Framework Implementation
 
 - [x] Login
+
 - [x] Inventory
+
 - [x] Cart
+
 - [x] Checkout
+
 - [x] Checkout Overview
+
 - [x] Checkout Complete
+
 - [x] Page Object Model
+
 - [x] Reusable Fixtures
+
 - [x] Centralized Test Data
+
 - [x] GitHub Actions Integration
 
 ### ✅ Phase 2 — Framework Refactoring
 
 - [x] `beforeEach` Hooks
+
 - [x] TypeScript Data Types
+
 - [x] Type-Safe Test Data Models
+
 - [x] Reduction of Duplicate Code
+
 - [x] Separation of Test Responsibilities
+
 - [x] Review and Removal of Redundant Helpers
+
 - [x] Direct Workflow Orchestration in Test Specs
+
 - [x] Simplified Fixture Registration
 
 ### ✅ Phase 3 — Advanced Automation
 
 - [x] Negative and Edge-Case Scenarios
+
 - [x] Advanced Data-Driven Testing
+
 - [x] API Testing Investigation
+
 - [x] API Testing Implementation
+
 - [x] Environment-Based Configuration
+
 - [x] Reporting Enhancements
+
 - [x] Cross-Browser Test Execution
+
 - [x] Reusable UI Components
 
 ---
@@ -614,11 +745,17 @@ This separation allows the framework to provide fast feedback through smoke test
 The framework has been validated through:
 
 - TypeScript compilation.
+
 - Local Playwright execution.
+
 - Chromium execution.
+
 - Firefox execution.
+
 - WebKit execution.
+
 - Full test suite execution.
+
 - GitHub Actions CI execution.
 
 The full test suite has passed **30 tests out of 30** in the reported refactoring validation run.
@@ -644,20 +781,27 @@ npm run runner
 Choose a UI test suite:
 
 - **Smoke** — Run smoke tests.
+
 - **Regression** — Run regression tests.
+
 - **Negative** — Run negative test scenarios.
+
 - **All UI Suites** — Run all smoke, regression, and negative tests.
 
 Choose the browser:
 
 - Chromium
+
 - Firefox
+
 - WebKit
+
 - All Browsers
 
 Choose the execution mode:
 
 - **Headed** — Display the browser during test execution.
+
 - **Headless** — Run tests without displaying the browser window.
 
 **2. API Tests**
@@ -669,17 +813,250 @@ Run API tests using the dedicated `api` Playwright project.
 Run all configured test projects:
 
 - Chromium UI tests
+
 - Firefox UI tests
+
 - WebKit UI tests
+
 - API tests
 
 ### Key Benefits
 
 - Simplifies test execution through an interactive terminal menu.
+
 - Supports selective execution of UI test suites and API tests.
+
 - Enables cross-browser testing with Chromium, Firefox, and WebKit.
+
 - Supports both headed and headless UI execution.
+
 - Provides a convenient entry point for local test execution.
+
+---
+
+## 🔐 Credential Encryption and Security — November 2026 Enhancement
+
+The framework now includes **AES-256-GCM authenticated encryption** for test passwords used by UI and API authentication scenarios. It separates credential preparation from Page Object interactions and API request operations.
+
+### Added Files and Test Project
+
+The following files and directories extend the project structure shown above:
+
+```text
+playwright-ecommerce-framework/
+├── scripts/
+│   └── encrypt-password.ts
+├── utils/
+│   ├── crypto.ts
+│   └── credentials.ts
+├── tests/
+│   └── unit/
+│       ├── crypto.spec.ts
+│       └── credentials.spec.ts
+└── .env.example
+```
+
+| File | Responsibility |
+|---|---|
+| `scripts/encrypt-password.ts` | Provides an interactive CLI for encrypting test passwords before storing them in JSON |
+| `utils/crypto.ts` | Implements encryption and decryption using Node.js's built-in `crypto` module |
+| `utils/credentials.ts` | Decrypts a credential password while preserving the credential object's other fields |
+| `tests/unit/crypto.spec.ts` | Tests cryptographic behavior and error handling |
+| `tests/unit/credentials.spec.ts` | Tests credential transformation and preservation of test data |
+| `.env.example` | Documents environment variables without exposing the real encryption key |
+
+The framework includes a dedicated **`unit` Playwright project** in addition to the existing Chromium, Firefox, WebKit, and API projects. Unit tests validate utilities without requiring browser interaction.
+
+### Encrypted Test Data
+
+Encrypted password values are stored in these existing JSON files:
+
+| Data File | Usage |
+|---|---|
+| `data/users.json` | Standard SauceDemo login credentials |
+| `data/negativeLoginData.json` | Invalid-user and locked-out-user login scenarios |
+| `data/apiAuthenticationData.json` | Valid and invalid Restful Booker API authentication scenarios |
+
+A total of **five password entries** were encrypted. The usernames, checkout information, scenario names, expected messages, and API expectations remain unchanged.
+
+### How Encryption Works
+
+The implementation uses:
+
+- **AES-256-GCM** for authenticated encryption.
+- A **32-byte encryption key**, supplied as 64 hexadecimal characters.
+- A new random **12-byte initialization vector (IV)** for each encryption operation.
+- A **16-byte authentication tag** to help detect tampering or incorrect decryption keys.
+- A serialized encrypted value in the format `IV:AUTH_TAG:CIPHERTEXT` (hexadecimal components).
+
+Because a random IV is generated each time, encrypting an identical password twice produces different encrypted outputs.
+
+Before a UI login or API authentication request, `withDecryptedPassword()` returns a new credential object with a decrypted password. This keeps cryptographic responsibilities outside `LoginPage.ts` and the API client and avoids modifying the original imported JSON object.
+
+### Local Environment Setup
+
+The `.env.example` file documents the required environment variables:
+
+```dotenv
+UI_BASE_URL=https://www.saucedemo.com/
+API_BASE_URL=https://restful-booker.herokuapp.com
+ENCRYPTION_KEY=
+```
+
+Create a local `.env` file with those settings. Generate a secure random encryption key using:
+
+```bash
+node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
+```
+
+Set `ENCRYPTION_KEY` in `.env` to the generated 64-character hexadecimal value. Do not commit `.env` or share the key.
+
+**Important for repository clones:** The encrypted passwords committed to the repository can only be decrypted with the key used to encrypt them. A newly generated key cannot decrypt existing ciphertext. Developers using their own keys must **re-encrypt all five demonstration passwords in the three JSON files** with their new key before running credential-dependent tests.
+
+### Encrypting a Password
+
+Run the interactive encryption CLI from the project root:
+
+```bash
+npx tsx scripts/encrypt-password.ts
+```
+
+Enter the password at the prompt and copy the encrypted result into the corresponding JSON test data entry. The script is designed to accept password input interactively rather than as a command-line argument.
+
+### Security Scope and Limitations
+
+- The encryption key is excluded from source control through `.gitignore` and supplied at runtime through the environment.
+- GitHub Actions uses an `ENCRYPTION_KEY` repository secret rather than hardcoding the key in workflow YAML.
+- The GitHub Actions secret must match the key used to encrypt the committed JSON values.
+- Encrypted passwords remain **reversible** to anyone who obtains the ciphertext and matching key.
+- Decrypted passwords exist in memory during login and API authentication; traces, reports, and logs must be treated as potentially sensitive artifacts.
+- This feature demonstrates credential-handling architecture with **public demonstration credentials**. For genuine private or production secrets, environment-based secrets or a dedicated secret manager is generally preferable to committing encrypted password values.
+
+---
+
+## 🧪 Cryptography and Credential Unit Tests — November 2026 Enhancement
+
+The framework includes **nine dedicated unit tests** covering both cryptographic functions and credential transformation.
+
+### Crypto Utility Tests (6)
+
+- Encrypting and decrypting a password successfully.
+- Producing different encrypted values for the same plaintext through random IV generation.
+- Rejecting tampered ciphertext.
+- Rejecting an invalid encryption key.
+- Rejecting malformed encrypted input.
+- Rejecting decryption using a different key.
+
+### Credential Utility Tests (3)
+
+- Decrypting the password while preserving other credential fields.
+- Returning a new object without mutating the original credential data.
+- Rejecting credentials encrypted with a different key.
+
+The unit tests use generated dummy credentials and temporary encryption keys rather than the project's stored credential key.
+
+Run the unit suite independently:
+
+```bash
+npx playwright test --project=unit --workers=1
+```
+
+Run the selected Chromium UI, API, and unit test projects together:
+
+```bash
+npx playwright test --project=chromium --project=api --project=unit --workers=1
+```
+
+---
+
+## 🔎 Trace Viewer and Debugging — November 2026 Enhancement
+
+**Current tracing configuration:** The original Reporting section above documents the earlier `on-first-retry` setting. The framework was subsequently updated to retain failure traces locally while continuing to use first-retry tracing in CI.
+
+```typescript
+trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
+```
+
+| Environment | Trace Behavior |
+|---|---|
+| Local development | Retain a trace when a test fails, even without a retry |
+| GitHub Actions CI | Record a trace on the first retry |
+
+To inspect an available trace, open the Playwright HTML report and select the trace attachment for the applicable test:
+
+```bash
+npx playwright show-report
+```
+
+For a one-off debugging run that records a trace regardless of pass or fail:
+
+```bash
+npx playwright test tests/smoke/login.spec.ts --project=chromium --trace on
+```
+
+The Trace Viewer can help investigate test actions, DOM snapshots, network activity, and failure timing. Trace artifacts may contain sensitive test data and should be shared only with appropriate access controls.
+
+The local failure-retention behavior was configured separately from the existing first-retry CI behavior. The 35-test validation result below is a passing-suite result; it does not by itself verify the failure-only trace retention path.
+
+---
+
+## 🤖 GitHub Actions Encryption Key Integration — November 2026 Enhancement
+
+To support encrypted credentials during CI, the workflow supplies the encryption key only to the Playwright execution step:
+
+```yaml
+- name: Run Playwright tests
+  env:
+    ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+  run: npx playwright test
+```
+
+Configure the `ENCRYPTION_KEY` secret in the GitHub repository under **Settings → Secrets and variables → Actions**, using the same key that was used for the JSON credentials.
+
+The CI workflow continues to execute the configured Chromium, Firefox, WebKit, API, and unit projects and uploads the HTML report artifact. GitHub Actions repository secrets are normally unavailable to workflows triggered by pull requests from external forks; those runs may require a separate, safe strategy for test credentials.
+
+---
+
+## 📈 Latest Local Validation — November 2026 Enhancement
+
+After integrating credential encryption, unit tests, and CI secret configuration, the complete locally configured Playwright test suite was executed successfully.
+
+| Test Suite | Passed |
+|---|---:|
+| Chromium UI | 8 |
+| Firefox UI | 8 |
+| WebKit UI | 8 |
+| API Authentication | 2 |
+| Unit Tests | 9 |
+| **Total** | **35** |
+
+**Latest reported local result: 35 out of 35 tests passed.**
+
+The earlier **30 out of 30** result documented above remains as the historical validation checkpoint for the framework refactoring milestone. The 35-test result reflects the later addition of cryptographic and credential unit tests. Local validation is not a substitute for confirming the results of an actual GitHub Actions run.
+
+---
+
+## 📝 Additional Engineering Decisions — November 2026 Enhancement
+
+### Why choose AES-256-GCM instead of AES-256-CBC?
+
+AES-256-GCM provides authenticated encryption. Its authentication tag allows decryption to reject altered ciphertext or a mismatched key, while CBC encryption alone does not provide equivalent integrity protection.
+
+### Why separate encryption utilities from Page Objects?
+
+`LoginPage.ts` remains responsible for user interface interactions. Credential decryption is performed before calling its login action, allowing UI automation to remain independent of the encryption format.
+
+### Why use a generic credential transformer instead of another Helper?
+
+`withDecryptedPassword()` implements a focused, reusable transformation that is applicable to positive UI, negative UI, and API authentication scenarios. It adds actual behavior without introducing a Helper class that only delegates existing methods.
+
+### Why add a dedicated unit test project?
+
+Cryptographic behavior and credential transformations can be validated without browser navigation. Separating these tests provides faster, more focused feedback and helps isolate defects in utility code.
+
+### Why store the encryption key in GitHub Actions Secrets?
+
+A repository secret allows the CI workflow to supply the key at execution time without embedding the secret value in version-controlled configuration. Repository access and artifact exposure must still be managed carefully.
 
 ---
 
