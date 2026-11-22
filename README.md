@@ -474,7 +474,6 @@ The framework uses environment variables for the UI and API base URLs:
 
 ```dotenv
 UI_BASE_URL=[https://www.saucedemo.com/](https://www.saucedemo.com/)
-
 API_BASE_URL=[https://restful-booker.herokuapp.com](https://restful-booker.herokuapp.com)
 ```
 
