@@ -40,8 +40,8 @@ export default defineConfig({
     // Capture screenshots only when a test fails.
     screenshot: 'only-on-failure',
 
-    // Capture a trace when a test is retried.
-    trace: 'on-first-retry',
+    // Capture a trace when a test is retried. Enabled tracing.
+    trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
   },
 
   projects: [
