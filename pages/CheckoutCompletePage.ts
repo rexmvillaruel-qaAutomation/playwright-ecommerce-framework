@@ -9,13 +9,34 @@ export class CheckoutCompletePage {
   readonly generatePdfButton: Locator;
 
   constructor(page: Page) {
+    
     this.page = page;
+    
+    // Locate the checkout completion page using its visible title.
+    this.title = page.getByText('Checkout: Complete!', {
+      exact: true,
+    });
 
-    this.title = page.getByTestId('title');
-    this.completeHeader = page.getByTestId('complete-header');
+    // Locate the confirmation heading using its accessible role and name.
+    this.completeHeader = page.getByRole('heading', {
+      name: 'Thank you for your order!',
+      exact: true,
+    });
+
+    // Retain the test ID for precise confirmation message validation.
     this.completeText = page.getByTestId('complete-text');
-    this.backHomeButton = page.getByTestId('back-to-products');
-    this.generatePdfButton = page.getByTestId('generate-pdf-order');
+
+    // Locate the Back Home button using its accessible role and name.
+    this.backHomeButton = page.getByRole('button', {
+      name: 'Back Home',
+      exact: true,
+    });
+
+    // Locate the PDF generation button using its actual accessible name.
+    this.generatePdfButton = page.getByRole('button', {
+      name: 'Generate PDF order',
+      exact: true,
+    });
   }
 
   // Action: Return to the inventory page

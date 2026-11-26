@@ -16,8 +16,8 @@ test('Add product to cart', async ({
   // Arrange: Log in as a standard user
   await loginPage.goto();
   await loginPage.login(
-      standardUser.username,
-      standardUser.password
+    standardUser.username,
+    standardUser.password
   );
 
   // Act: Add the backpack to the cart

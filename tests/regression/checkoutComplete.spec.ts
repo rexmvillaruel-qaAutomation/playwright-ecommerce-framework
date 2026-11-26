@@ -5,8 +5,7 @@ import checkout from '../../data/checkout.json';
 import messages from '../../data/messages.json';
 import { withDecryptedPassword } from '../../utils/credentials';
 
-test(
-  'Complete checkout successfully',
+test('Complete checkout successfully',
   async ({
     loginPage,
     inventoryPage,
@@ -17,7 +16,7 @@ test(
     checkoutCompletePage,
   }) => {
 
-     // Decrypt the standard user's password before authentication.
+    // Decrypt the standard user's password before authentication.
     const standardUser = withDecryptedPassword(users.standardUser);
 
     // Arrange: Log in as a standard user
@@ -105,6 +104,6 @@ test(
     await checkoutCompletePage.clickBackHome();
 
     // Assert: Verify the inventory page is visible
-    await expect(inventoryPage.inventoryContainer).toBeVisible();
+    await expect(inventoryPage.inventoryTitle).toBeVisible();;
   }
 );

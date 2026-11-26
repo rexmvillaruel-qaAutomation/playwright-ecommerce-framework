@@ -7,9 +7,15 @@ export class CartPage {
   readonly checkoutButton: Locator;
 
   constructor(page: Page) {
+
     this.page = page;
     this.cartItem = page.getByTestId('inventory-item');
-    this.checkoutButton = page.getByTestId('checkout');
+    
+    // Locate the Checkout button using its accessible role and name.
+    this.checkoutButton = page.getByRole('button', {
+      name: 'Checkout',
+      exact: true,
+    });
   }
 
   async clickCheckout(): Promise<void> {

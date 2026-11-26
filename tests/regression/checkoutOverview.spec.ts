@@ -5,8 +5,7 @@ import checkout from '../../data/checkout.json';
 import messages from '../../data/messages.json';
 import { withDecryptedPassword } from '../../utils/credentials';
 
-test(
-  'Verify checkout overview information',
+test('Verify checkout overview information',
   async ({
     loginPage,
     inventoryPage,
@@ -16,7 +15,7 @@ test(
     checkoutOverviewPage,
   }) => {
 
-     // Decrypt the standard user's password before authentication.
+    // Decrypt the standard user's password before authentication.
     const standardUser = withDecryptedPassword(users.standardUser);
 
     // Arrange: Log in as a standard user

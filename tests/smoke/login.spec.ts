@@ -18,5 +18,5 @@ test('Valid user login', async ({ loginPage, inventoryPage }) => {
   );
 
   // Validate successful login
-  await expect(inventoryPage.inventoryContainer).toBeVisible();
+  await expect(inventoryPage.inventoryTitle).toBeVisible();
 });

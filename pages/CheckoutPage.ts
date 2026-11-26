@@ -9,12 +9,27 @@ export class CheckoutPage {
   readonly continueButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
 
-    this.firstNameInput = page.getByTestId('firstName');
-    this.lastNameInput = page.getByTestId('lastName');
-    this.postalCodeInput = page.getByTestId('postalCode');
-    this.continueButton = page.getByTestId('continue');
+    this.page = page;
+    
+    // Locate checkout fields using visible placeholders.
+    this.firstNameInput = page.getByPlaceholder('First Name', {
+      exact: true,
+    });
+
+    this.lastNameInput = page.getByPlaceholder('Last Name', {
+      exact: true,
+    });
+
+    this.postalCodeInput = page.getByPlaceholder('Zip/Postal Code', {
+      exact: true,
+    });
+
+    // Locate the Continue button using its accessible role and name.
+    this.continueButton = page.getByRole('button', {
+      name: 'Continue',
+      exact: true,
+    });
   }
 
   // Action: Fill in the required checkout information

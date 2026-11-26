@@ -7,7 +7,12 @@ export class Header {
 
   constructor(page: Page) {
     this.page = page;
-    this.shoppingCartLink = page.locator('.shopping_cart_link');
+    
+    // Locate the shopping cart using its accessible role and name.
+    // Allow the accessible name to change based on the cart contents.
+    this.shoppingCartLink = page.getByRole('button', {
+      name: /^Cart(?:,|$)/i,
+    });
   }
 
   async openCart(): Promise<void> {

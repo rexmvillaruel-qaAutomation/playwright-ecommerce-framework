@@ -9,31 +9,24 @@ export class LoginPage {
   readonly errorMessage: Locator;
 
   constructor(page: Page) {
+
     this.page = page;
-
-    this.usernameInput = page.getByRole('textbox', {
-      name: 'Username',
-    });
-
-    this.passwordInput = page.getByRole('textbox', {
-      name: 'Password',
-    });
-
+    this.usernameInput = page.getByPlaceholder('Username');
+    this.passwordInput = page.getByPlaceholder('Password');
     this.loginButton = page.getByRole('button', {
       name: 'Login',
     });
-
-    this.errorMessage = this.page.getByTestId('error');
+    this.errorMessage = page.getByRole('alert');
   }
 
-  
   async goto() {
-  // Wait for the initial HTML document to be parsed.
-  // This avoids waiting for every resource to finish loading.
+    // Wait for the initial HTML document to be parsed.
+    // This avoids waiting for every resource to finish loading.
     await this.page.goto('/', {
       waitUntil: 'domcontentloaded',
-  });
-}
+    });
+  }
+  
   async login(username: string, password: string) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);

@@ -14,18 +14,31 @@ export class CheckoutOverviewPage {
   readonly finishButton: Locator;
 
   constructor(page: Page) {
+    
     this.page = page;
 
-    this.pageTitle = page.getByTestId('title');
+    // Locate the checkout overview using its visible page title.
+    this.pageTitle = page.getByText('Checkout: Overview', {
+      exact: true,
+    });
+
+    // Retain test IDs for dynamic product and summary values.
     this.productName = page.getByTestId('inventory-item-name');
     this.productQuantity = page.getByTestId('item-quantity');
     this.productPrice = page.getByTestId('inventory-item-price');
     this.paymentInfo = page.getByTestId('payment-info-value');
     this.shippingInfo = page.getByTestId('shipping-info-value');
-    this.itemTotal = page.getByTestId('subtotal-label');
-    this.tax = page.getByTestId('tax-label');
-    this.total = page.getByTestId('total-label');
-    this.finishButton = page.locator('#finish');
+
+    // Locate price summary values using visible text labels.
+    this.itemTotal = page.getByText(/^Item total:/);
+    this.tax = page.getByText(/^Tax:/);
+    this.total = page.getByText(/^Total:/);
+    
+    // Locate the Finish button using its accessible role and name.
+    this.finishButton = page.getByRole('button', {
+      name: 'Finish',
+      exact: true,
+    });
   }
 
   // Action: Finish the checkout process
